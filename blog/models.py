@@ -1,7 +1,11 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+class User(AbstractUser):
+    profile_pic = models.ImageField(blank=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -29,7 +33,7 @@ class Exercise(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(blank=True)
     category = models.ManyToManyField(Category)
-    # duration = models.IntegerField(blank=True, null=True)
+    duration = models.IntegerField(blank=True, null=True)
     number_of_player = models.IntegerField(blank=True, null=True)
     picture = models.ImageField(blank=True, null=True)
     description = models.TextField(blank=True)
