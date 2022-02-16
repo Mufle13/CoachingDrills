@@ -32,13 +32,16 @@ class Exercise(models.Model):
 
     name = models.CharField(max_length=255)
     slug = models.SlugField(blank=True)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, blank=True)
     duration = models.IntegerField(blank=True, null=True)
     number_of_player = models.IntegerField(blank=True, null=True)
     picture = models.ImageField(blank=True, null=True)
     description = models.TextField(blank=True)
     difficulty = models.CharField(max_length=2, choices=DIFFICULTY, default=FACILE)
 
+
+    def __str__(self):
+        return self.name
 
     def save(self, *args, **kwargs):
         if not self.slug:

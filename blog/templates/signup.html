@@ -5,21 +5,20 @@
     <title>Création de compte</title>
 </head>
 <body>
-    <form method="POST">
-        {% csrf_token %}
 
-        {{ form.as_p }}
+    <h1>Création de compte</h1>
+        <form method="POST">
+            {% csrf_token %}
 
-        {% for message in errors.values %}
-        <h3 style="color: red;">
-            {{ message }}
-        </h3>
-        {% endfor %}
-        
-        <input type="submit" value="S'inscrire">
+            {{ form.as_p }}
 
-    </form>
-
-
+            {% for message in errors.values %}
+            <h3 style="color: red;">
+                {{ message }}
+            </h3>
+            {% endfor %}
+            
+            <input type="submit" value="S'inscrire">
+        </form>
 </body>
 </html>

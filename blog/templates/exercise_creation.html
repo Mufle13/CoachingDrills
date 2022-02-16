@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Création d'exercice</title>
+</head>
+<body>
+    <h1>Créer un exercice</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{form.as_p}}
+        <input type="submit" value="Enregistrer l'exercice">
+    </form>
+
+    <p><a href="/accounts/profile">Retour au profil</a></p>
+</body>
+</html>
