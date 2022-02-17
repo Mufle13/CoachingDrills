@@ -15,17 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from blog.views import signup, profile, exercise_add, logout_view
+from blog.views import index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add
 from django.contrib.auth import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    path('admin/', index, name='index'),
+    path('admin/exercices', exercices_listing, name='exercice_listing'),
+    path('admin/categories', categories_listing, name='category_listing'),
+    path('admin/tags', tags_listing, name='tag_listing'),
     path('compte/nouveau', signup, name='signup'),
     # path('compte/', include('django.contrib.auth.urls')),
     path('compte/connexion', views.LoginView.as_view(), name='login'),
     path('compte/deconnexion', logout_view, name="logout"),
     path('accounts/profile/', profile, name="profile page"),
-    path('exercice/ajouter', exercise_add, name="adding an exercise")
+
+    path('admin/exercices/ajouter', exercise_add, name="adding an exercise"),
+    path('admin/categories/ajouter', category_add, name="adding a category"),
+    path('admin/tags/ajouter', tag_add, name="adding a tag")
 ]
 
 import django.contrib.auth.urls

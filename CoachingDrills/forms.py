@@ -3,7 +3,7 @@ from dataclasses import field
 from pyexpat import model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from blog.models import User, Exercise
+from blog.models import Category, Tag, User, Exercise
 
 class CustiomSignupForm(UserCreationForm):
     class Meta:
@@ -57,3 +57,15 @@ class ExerciseAddForm(forms.ModelForm):
             'picture': 'Illustration',
             'description': 'Description'}
         widget = {'category': forms.SelectMultiple}
+
+class CategoryAddForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class TagAddForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+
