@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name}}</title>
+</head>
+<body>
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+
+    {% for exercise in exercises %}
+    <div>
+        <p>{{exercise.name}}</p>
+        <p>{{exercise.description}}</p>
+    </div>
+    {% endfor %}
+
+
+    <p><a href="/admin/category/{{category.pk}}/delete">Delete</a></p>
+    <p><a href="/admin/category/{{category.pk}}/edit">Edit</a></p>
+</body>
+</html>

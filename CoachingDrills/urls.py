@@ -15,24 +15,46 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from blog.views import index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add
+from blog.views import index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit
 from django.contrib.auth import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('admin/', index, name='index'),
-    path('admin/exercices', exercices_listing, name='exercice_listing'),
+
+    # creation
+    path('admin/exercices/ajouter', exercise_add, name="adding exercise"),
+    path('admin/categories/ajouter', category_add, name="adding category"),
+    path('admin/tags/ajouter', tag_add, name="adding tag"),
+
+    #listing
+    path('admin/exercises', exercices_listing, name='exercise_listing'),
     path('admin/categories', categories_listing, name='category_listing'),
     path('admin/tags', tags_listing, name='tag_listing'),
+
+    # detail
+    path('admin/exercise/<int:pk>/detail', exercise_detail, name='exercise detail'),
+    path('admin/category/<int:pk>/detail', category_detail, name='category detail'),
+    path('admin/tag/<int:pk>/detail', tag_detail, name='tag detail'),
+
+    # edit
+    path('admin/exercise/<int:pk>/edit', exercise_edit, name="edit exercise"),
+    path('admin/category/<int:pk>/edit', category_edit, name="edit category"),
+    path('admin/tag/<int:pk>/edit', tag_edit, name="edit tag"),
+
+
+    # deletion
+    path("admin/exercise/<int:pk>/delete", exercise_delete, name="delete exercise"),
+    path('admin/category/<int:pk>/delete', category_delete, name="delete category"),
+    path('admin/tag/<int:pk>/delete', tag_delete, name="delete tag"),
+
+
+    # authentification 
     path('compte/nouveau', signup, name='signup'),
     # path('compte/', include('django.contrib.auth.urls')),
     path('compte/connexion', views.LoginView.as_view(), name='login'),
     path('compte/deconnexion', logout_view, name="logout"),
     path('accounts/profile/', profile, name="profile page"),
 
-    path('admin/exercices/ajouter', exercise_add, name="adding an exercise"),
-    path('admin/categories/ajouter', category_add, name="adding a category"),
-    path('admin/tags/ajouter', tag_add, name="adding a tag")
+   
 ]
-
-import django.contrib.auth.urls

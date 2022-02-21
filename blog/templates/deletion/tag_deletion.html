@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ tag.name }}</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+
+        <p>Are you sure you want to delete {{ tag.name }}?</p>
+
+        <input type="submit" value="Delete">
+
+        <p><a href="/admin/tag/{{ tag.pk }}/detail">Back</a></p>
+    </form>
+</body>
+</html>

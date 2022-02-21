@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ tag.name}}</title>
+</head>
+<body>
+    <h1>{{ tag.name }}</h1>
+    <p>{{ tag.description }}</p>
+
+    <a href="/admin/tag/{{tag.pk}}/delete">Delete</a>
+    <p><a href="/admin/tag/{{tag.pk}}/edit">Edit</a></p>
+</body>
+</html>

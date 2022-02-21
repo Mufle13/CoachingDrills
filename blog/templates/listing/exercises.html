@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercices</title>
+</head>
+<body>
+    <header>
+        <a href="/admin">Accueil</a>
+        <a href="/admin/exercices">Exercices</a>
+        <a href="/admin/categories">Categories</a>
+        <a href="/admin/tags">Tags</a>
+    </header>
+    <h1>Exercises</h1>
+    {% for exercise in exercises %}
+    <div>
+        <ul>
+            <li><a href="/admin/exercise/{{exercise.pk}}/detail">{{ exercise.name }}</a></li>
+            <li>{{ exercise.difficulty }}</li>
+            <li>{{ exercise.description }}</li>
+        </ul>
+    </div>
+    {% endfor %}
+    
+
+    <p><a href="/admin/exercices/ajouter">Ajouter un exercice</a></p>
+    
+</body>
+</html>

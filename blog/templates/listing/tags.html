@@ -13,7 +13,10 @@
     </header>
     <h1>Tags</h1>
     {% for tag in tags %}
-        <p>{{ tag.name }}</p>
+    <div>
+        <a href="/admin/tag/{{tag.pk}}/detail">{{ tag.name }}</a>
+        {{ tag.description }}
+    </div>
     {% endfor %}
 
     <a href="/admin/tags/ajouter">Ajouter un tag</a>
