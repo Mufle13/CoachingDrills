@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des categories</title>
+</head>
+<body>
+    <header>
+        <a href="/admin">Accueil</a>
+        <a href="/admin/exercices">Exercices</a>
+        <a href="/admin/categories">Categories</a>
+        <a href="/admin/tags">Tags</a>
+    </header>
+    <h1>Categories</h1>
+    {%  for category in categories %}
+    <p>{{ category.name }}</p>
+    {% endfor %}
+
+    <a href="/admin/categories/ajouter">Ajouter une catégorie</a>
+
+</body>
+</html> 

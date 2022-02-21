@@ -55,6 +55,7 @@ class Exercise(models.Model):
     difficulty = models.CharField(max_length=2, choices=DIFFICULTY, default=FACILE)
 
 
+
     def __str__(self):
         return self.name
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Création de tags</title>
+</head>
+<body>
+    <header>
+        <a href="/admin">Accueil</a>
+        <a href="/admin/exercices">Exercices</a>
+        <a href="/admin/categories">Categories</a>
+        <a href="/admin/tags">Tags</a>
+    </header>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p}}
+
+        <input type="Submit" value="Enregistrer le tag">
+
+    </form>
+</body>
+</html>

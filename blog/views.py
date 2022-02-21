@@ -52,17 +52,17 @@ def logout_view(request):
 @login_required
 def exercices_listing(request):
     exercices = Exercise.objects.all()
-    return render(request,'listing/exercices.html', context={'articles': exercices})
+    return render(request,'listing/exercices.html', context={'exercices': exercices})
 
 @login_required
 def categories_listing(request):
     categories = Category.objects.all()
-    return render(request, 'listing/categories.html', context={'articles': categories})
+    return render(request, 'listing/categories.html', context={'categories': categories})
 
 @login_required
 def tags_listing(request):
     tags = Tag.objects.all()
-    return render(request,'listing/tags.html', context={'articles': tags})
+    return render(request,'listing/tags.html', context={'tags': tags})
 
 # Creation views
 @login_required
