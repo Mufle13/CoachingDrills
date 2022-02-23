@@ -1,0 +1,13 @@
+{% extends 'admin/back_base.html' %}
+{% block title %} <title>{{ tag.name }}</title> {% endblock %}
+
+{%block content %}
+
+    <h1>{{ tag.name }}</h1>
+    <p>{{ tag.description }}</p>
+
+
+    <p><a href="{% url 'edit_tag' pk=tag.pk %}">Edit</a></p>
+    <p><a href="{% url 'delete_tag' pk=tag.pk %}">Delete</a></p>
+
+{% endblock %}

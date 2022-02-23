@@ -15,17 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from blog.views import index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit
+from blog.views import admin_index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit, index
 from django.contrib.auth import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('admin/', index, name='index'),
+    path('admin/', admin_index, name='index_back'),
 
     # creation
-    path('admin/exercices/ajouter', exercise_add, name="adding exercise"),
-    path('admin/categories/ajouter', category_add, name="adding category"),
-    path('admin/tags/ajouter', tag_add, name="adding tag"),
+    path('admin/exercices/ajouter', exercise_add, name="adding_exercise"),
+    path('admin/categories/ajouter', category_add, name="adding_category"),
+    path('admin/tags/ajouter', tag_add, name="adding_tag"),
 
     #listing
     path('admin/exercises', exercices_listing, name='exercise_listing'),
@@ -33,28 +33,28 @@ urlpatterns = [
     path('admin/tags', tags_listing, name='tag_listing'),
 
     # detail
-    path('admin/exercise/<int:pk>/detail', exercise_detail, name='exercise detail'),
-    path('admin/category/<int:pk>/detail', category_detail, name='category detail'),
-    path('admin/tag/<int:pk>/detail', tag_detail, name='tag detail'),
+    path('admin/exercise/<int:pk>/detail', exercise_detail, name='exercise_detail'),
+    path('admin/category/<int:pk>/detail', category_detail, name='category_detail'),
+    path('admin/tag/<int:pk>/detail', tag_detail, name='tag_detail'),
 
     # edit
-    path('admin/exercise/<int:pk>/edit', exercise_edit, name="edit exercise"),
-    path('admin/category/<int:pk>/edit', category_edit, name="edit category"),
-    path('admin/tag/<int:pk>/edit', tag_edit, name="edit tag"),
+    path('admin/exercise/<int:pk>/edit', exercise_edit, name="edit_exercise"),
+    path('admin/category/<int:pk>/edit', category_edit, name="edit_category"),
+    path('admin/tag/<int:pk>/edit', tag_edit, name="edit_tag"),
 
 
     # deletion
-    path("admin/exercise/<int:pk>/delete", exercise_delete, name="delete exercise"),
-    path('admin/category/<int:pk>/delete', category_delete, name="delete category"),
-    path('admin/tag/<int:pk>/delete', tag_delete, name="delete tag"),
+    path("admin/exercise/<int:pk>/delete", exercise_delete, name="delete_exercise"),
+    path('admin/category/<int:pk>/delete', category_delete, name="delete_category"),
+    path('admin/tag/<int:pk>/delete', tag_delete, name="delete_tag"),
 
 
     # authentification 
-    path('compte/nouveau', signup, name='signup'),
+    path('account/register', signup, name='signup'),
     # path('compte/', include('django.contrib.auth.urls')),
-    path('compte/connexion', views.LoginView.as_view(), name='login'),
-    path('compte/deconnexion', logout_view, name="logout"),
-    path('accounts/profile/', profile, name="profile page"),
+    path('account/login', views.LoginView.as_view(), name='login'),
+    path('account/logout', logout_view, name="logout"),
+    path('accounts/profile/', profile, name="user_profile"),
 
-   
+   path('', index, name='index_front')
 ]

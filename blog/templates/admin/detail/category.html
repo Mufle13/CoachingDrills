@@ -1,0 +1,18 @@
+{% extends 'admin/back_base.html' %}
+{% block title %} <title>{{ category.name }}</title> {% endblock %}
+
+{%block content %}
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+
+    {% for exercise in exercises %}
+    <div>
+        <p>{{exercise.name}}</p>
+        <p>{{exercise.description}}</p>
+    </div>
+    {% endfor %}
+
+
+    <p><a href="{% url 'edit_category' pk=category.pk %}">Edit</a></p>
+    <p><a href="{% url 'delete_category' pk=category.pk %}">Delete</a></p>
+{% endblock %}

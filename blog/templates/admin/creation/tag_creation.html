@@ -1,0 +1,14 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>Tag's creation</title> {% endblock %}
+    
+{%block content %}
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p}}
+
+        <input type="Submit" value="Enregistrer le tag">
+
+    </form>
+{% endblock %}

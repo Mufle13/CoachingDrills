@@ -1,0 +1,15 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>Categories</title> {% endblock %}
+    
+{%block content %}
+    <h1>Categories</h1>
+    {%  for category in categories %}
+    <div>
+        <a href="{% url 'category_detail' pk=category.pk %}">{{ category.name }}</a>
+        {{ category.description }}
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'adding_category' %}">Ajouter une catégorie</a>
+{% endblock %}

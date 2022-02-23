@@ -1,0 +1,16 @@
+{% extends 'admin/back_base.html' %}
+{% block title %} <title>{{category.name}}</title> {% endblock %}
+    
+{%block content %}
+    <h1>Edit {{category.name}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p}}
+
+        <input type="submit" value="Edit">
+
+        <p><a href="{% url 'category_detail' pk=category.pk %}">Cancel</a></p>
+
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'admin/back_base.html' %}
+{% block title %} <title>Tags</title> {% endblock %}
+    
+{%block content %}
+    <h1>Tags</h1>
+    {% for tag in tags %}
+    <div>
+        <a href="{% url 'tag_detail' pk=tag.pk %}">{{ tag.name }}</a>
+        {{ tag.description }}
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'adding_tag' %}">Ajouter un tag</a>
+
+{% endblock %}

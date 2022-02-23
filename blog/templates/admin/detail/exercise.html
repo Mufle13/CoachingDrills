@@ -1,0 +1,17 @@
+{% extends 'admin/back_base.html' %}
+{% block title %} <title>{{ exercise.name }}</title> {% endblock %}
+
+{%block content %}
+    <h1>{{ exercise.name }}</h1>
+    <p>{{ exercise.description }}</p>
+
+    <ul>
+        <li>Number of player: {{exercise.number_of_player}}</li>
+        <li>Duration: {{exercise.duration}}</li>
+        <li>Difficulty: {{exercise.difficulty}}</li>
+    </ul>
+
+
+    <p><a href="{% url 'edit_exercise' pk=exercise.pk %}">Edit</a></p>
+    <p><a href="{% url 'delete_ exercise' pk=exercise.pk %}">Delete</a></p>
+{% endblock %}

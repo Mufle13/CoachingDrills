@@ -1,0 +1,18 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>{{exercise.name}}</title> {% endblock %}
+    
+{%block content %}
+    <h1>Edit {{exercise.name}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p}}
+
+        <input type="submit" value="Edit">
+
+        
+        <p><a href="{% url 'exercise_detail' pk=exercise.pk %}">Cancel</a></p>
+
+    </form>
+{% endblock %}

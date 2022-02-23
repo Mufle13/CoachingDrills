@@ -1,0 +1,16 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>{{category.name}}</title> {% endblock %}
+    
+{%block content %}
+    <form method='POST'>
+        {% csrf_token %}
+
+        <p>Are you sure you want to delete {{ category.name }}?</p>
+
+        <input type="submit" value="Delete">
+
+        <p><a href="{% url 'category_detail' pk=category.pk %}">Back</a></p>
+
+    </form>
+{% endblock %}

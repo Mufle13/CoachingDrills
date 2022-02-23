@@ -1,0 +1,13 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>Exercise's creation</title> {% endblock %}
+    
+{%block content %}
+    <h1>Créer un exercice</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{form.as_p}}
+        <input type="submit" value="Enregistrer l'exercice">
+    </form>
+{% endblock %}

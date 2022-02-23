@@ -7,7 +7,7 @@ from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm,
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from blog.models import Exercise, Category, Tag
+from blog.models import Exercise, Category, Tag, User
 from django.shortcuts import render, get_object_or_404
 
 
@@ -15,8 +15,11 @@ from django.shortcuts import render, get_object_or_404
 
 # Cutom admin page
 @login_required
-def index(request):
-    return render(request, 'index.html')
+def admin_index(request):
+    user = request.user
+    context = {'user': user}
+
+    return render(request, 'admin/admin_index.html', context=context)
 
 # User authentification views
 def signup(request):
@@ -34,7 +37,7 @@ def signup(request):
 
     context['form'] = form
 
-    return render(request, 'signup.html', context=context)
+    return render(request, 'registration/signup.html', context=context)
 
 def profile(request):
     context = {
@@ -42,7 +45,7 @@ def profile(request):
         'last_name': request.user.last_name,
         'username': request.user.username
     }
-    return render(request, 'profile.html', context=context)
+    return render(request, 'registration/profile.html', context=context)
 
 def logout_view(request):
     first_name = request.user.first_name
@@ -55,17 +58,17 @@ def logout_view(request):
 @login_required
 def exercices_listing(request):
     exercises = Exercise.objects.all()
-    return render(request,'listing/exercises.html', context={'exercises': exercises})
+    return render(request,'admin/listing/exercises.html', context={'exercises': exercises})
 
 @login_required
 def categories_listing(request):
     categories = Category.objects.all()
-    return render(request, 'listing/categories.html', context={'categories': categories})
+    return render(request, 'admin/listing/categories.html', context={'categories': categories})
 
 @login_required
 def tags_listing(request):
     tags = Tag.objects.all()
-    return render(request,'listing/tags.html', context={'tags': tags})
+    return render(request,'admin/listing/tags.html', context={'tags': tags})
 
 
 # Creation views
@@ -82,7 +85,7 @@ def exercise_add(request):
     form = ExerciseAddForm()
     context['form'] = form
 
-    return render(request, 'creation/exercise_creation.html', context=context)
+    return render(request, 'admin/creation/exercise_creation.html', context=context)
 
 @login_required
 def category_add(request): 
@@ -97,7 +100,7 @@ def category_add(request):
     form = CategoryAddForm()
     context['form'] = form
 
-    return render(request, 'creation/category_creation.html', context=context)
+    return render(request, 'admin/creation/category_creation.html', context=context)
 
 @login_required
 def tag_add(request): 
@@ -112,7 +115,7 @@ def tag_add(request):
     form = TagAddForm()
     context['form'] = form
 
-    return render(request, 'creation/tag_creation.html', context=context)
+    return render(request, 'admin/creation/tag_creation.html', context=context)
 
 
 # Deletion views
@@ -125,7 +128,7 @@ def exercise_delete(request, pk):
         return redirect('exercice_listing')
 
     context={'exercise': exercise}
-    return render(request, 'deletion/exercise_deletion.html', context=context)
+    return render(request, 'admin/deletion/exercise_deletion.html', context=context)
 
 @login_required
 def category_delete(request, pk):
@@ -135,7 +138,7 @@ def category_delete(request, pk):
         return redirect('category_listing')
 
     context = {'category': category}
-    return render(request, 'deletion/category_deletion.html', context=context)
+    return render(request, 'admin/deletion/category_deletion.html', context=context)
 
 @login_required
 def tag_delete(request, pk):
@@ -145,27 +148,27 @@ def tag_delete(request, pk):
         return redirect('tag_listing')
     
     context = {'tag': tag}
-    return render(request, 'deletion/tag_deletion.html', context=context)
+    return render(request, 'admin/deletion/tag_deletion.html', context=context)
 
 # Detail views
 @login_required
 def exercise_detail(request, pk):
     exercise = get_object_or_404(Exercise, pk=pk)
     context= {'exercise': exercise}
-    return render(request, 'detail/exercise.html', context=context)
+    return render(request, 'admin/detail/exercise.html', context=context)
 
 @login_required
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
     exercises = Exercise.objects.filter(category=category)
     context = {'category': category, 'exercises': exercises}
-    return render(request, 'detail/category.html', context=context)
+    return render(request, 'admin/detail/category.html', context=context)
 
 @login_required
 def tag_detail(request, pk):
     tag = get_object_or_404(Tag, pk=pk)
     context = {'tag': tag}
-    return render(request, 'detail/tag.html', context=context)
+    return render(request, 'admin/detail/tag.html', context=context)
 
 
 # editing views
@@ -181,7 +184,7 @@ def exercise_edit(request, pk):
     form = form = ExerciseAddForm(instance=exercise)
     context = {'form': form, 'exercise': exercise}
 
-    return render(request, 'edit/exercise.html', context=context)
+    return render(request, 'admin/edit/exercise.html', context=context)
 
 @login_required
 def category_edit(request, pk):
@@ -195,7 +198,7 @@ def category_edit(request, pk):
     form = form = CategoryAddForm(instance=category)
     context = {'form': form, 'category': category}
 
-    return render(request, 'edit/category.html', context=context)
+    return render(request, 'admin/edit/category.html', context=context)
 
 @login_required
 def tag_edit(request, pk):
@@ -209,6 +212,16 @@ def tag_edit(request, pk):
     form = form = TagAddForm(instance=tag)
     context = {'form': form, 'tag': tag}
 
-    return render(request, 'edit/tag.html', context=context)
+    return render(request, 'admin/edit/tag.html', context=context)
 
 
+# font
+def index(request):
+    exercises = Exercise.objects.all()
+    user = request.user
+    context = {
+        'user': user,
+        'exercises': exercises
+    }
+
+    return render(request, 'index.html', context=context)

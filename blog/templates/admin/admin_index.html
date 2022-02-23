@@ -1,0 +1,14 @@
+{% extends 'admin/back_base.html' %}
+
+{% block title %} <title>Index</title> {% endblock %}
+    
+{%block content %}
+<body>
+    <h1>Allez Guilhem, c'est le moment de faire un site de fou</h1>
+    <h2>Menu</h2>
+    <ul>
+        <li><a href="{% url 'exercise_listing' %}">Exercises' list</a></li>
+        <li><a href="{% url 'category_listing' %}">Categories' list</a></li>
+        <li><a href="{% url 'tag_listing' %}">Tags' list</a></li>
+    </ul>
+{% endblock %}
