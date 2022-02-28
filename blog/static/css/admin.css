@@ -1,0 +1,99 @@
+
+
+body {
+    margin: 0px;
+    /* background-image: url("../img/admin/football-pitch.png"); */
+    background-color: greenyellow;
+}
+
+.main_container {
+    display: flex;
+    margin: 150px;
+    margin-top: 0px;
+}
+
+header {
+    height: 100px;
+    background-color: white;
+    border: thin solid lightgreen;
+    display: flex;
+    margin: 150px;
+    margin-top: 100px;
+    margin-bottom: 0px;
+    padding: 10px;
+    align-items: center;
+    font-size: 50px;
+}
+
+
+nav {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: solid thin lightgreen;
+    margin: 0px;
+    padding: 20px;
+    align-items: stretch;
+}
+
+.account_logging {
+    display: flex;
+}
+
+.material-icons {
+    margin-right: 10px;
+    font-size: 40px;
+}
+
+.button {
+    display: flex;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 20px 0 0;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 15px;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: green;
+    text-decoration: none;
+}
+
+main {
+    margin: 0px;
+    padding: 20px;
+    background-color: white;
+    border: solid thin lightgreen;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    font-family: 'Libre Baskerville', serif;
+}
+
+#exercise {
+    background-color: wheat;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+#exercise p {
+    margin: 0px;
+}
+
+#exercise_list {
+    border: solid thin black;
+    display: flex;
+    justify-content: space-evenly;
+}

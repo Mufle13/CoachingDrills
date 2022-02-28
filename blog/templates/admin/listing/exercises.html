@@ -3,15 +3,15 @@
     
 {%block content %}
     <h1>Exercises</h1>
+    <div id=exercise_list>
     {% for exercise in exercises %}
-    <div>
-        <ul>
-            <li><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></li>
-            <li>{{ exercise.difficulty }}</li>
-            <li>{{ exercise.description }}</li>
-        </ul>
-    </div>
+        <div id='exercise'>
+            <p><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></p>
+            <p>{{ exercise.difficulty }}</p>
+            <p>{{ exercise.description }}</p>
+        </div>
     {% endfor %}
+    </div>
     
 
     <p><a href="{% url 'adding_exercise' %}">Ajouter un exercice</a></p>
