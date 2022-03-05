@@ -43,20 +43,24 @@ class ExerciseAddForm(forms.ModelForm):
         fields = [
             'name',
             'category',
+            'tag',
             'duration',
             'number_of_player',
             'difficulty',
             'picture',
             'description'
         ]
-        labels = {'name': 'Titre',
-            'category': 'Catégorie',
-            'duration': 'Durée',
-            'number_of_player': 'Nombre de joueurs',
-            'difficulty': 'Difficulté',
+        labels = {'name': 'Title',
+            'category': 'Category',
+            'duration': 'Duration',
+            'number_of_player': 'Number of player',
+            'difficulty': 'Difficulty',
             'picture': 'Illustration',
             'description': 'Description'}
-        widget = {'category': forms.SelectMultiple}
+        widget = {
+            'category': forms.SelectMultiple,
+            'tag': forms.SelectMultiple
+            }
 
 class CategoryAddForm(forms.ModelForm):
     class Meta:

@@ -3,13 +3,28 @@
     
 {%block content %}
     <h1>Tags</h1>
-    {% for tag in tags %}
-    <div>
-        <a href="{% url 'tag_detail' pk=tag.pk %}">{{ tag.name }}</a>
-        {{ tag.description }}
+    <div id=list>
+        <table>
+            <thead class="table_header">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>           
+                </tr>
+            </thead>
+            {% for tag in tags %}
+            <tbody>
+                <tr class="listing">
+                    <td><a href="{% url 'tag_detail' pk=tag.pk %}">{{ tag.name }}</a></td>
+                    <td>{{ tag.description }}</td>
+                    <td><a class="edit" href="{% url 'edit_tag' pk=tag.pk %}">Edit</a></td>
+                    <td><a class="delete" href="{% url 'delete_tag' pk=tag.pk %}">Delete</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}      
+        </table>
     </div>
-    {% endfor %}
-
-    <a href="{% url 'adding_tag' %}">Ajouter un tag</a>
+    <div class="add_button">
+        <a href="{% url 'adding_tag' %}">Add a tag</a>
+    </div>
 
 {% endblock %}

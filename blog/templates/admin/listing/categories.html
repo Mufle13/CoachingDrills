@@ -4,12 +4,27 @@
     
 {%block content %}
     <h1>Categories</h1>
-    {%  for category in categories %}
-    <div>
-        <a href="{% url 'category_detail' pk=category.pk %}">{{ category.name }}</a>
-        {{ category.description }}
+    <div id=list>
+        <table>
+            <thead class="table_header">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>           
+                </tr>
+            </thead>
+            {% for category in categories %}
+            <tbody>
+                <tr class="listing">
+                    <td><a href="{% url 'category_detail' pk=category.pk %}">{{ category.name }}</a></td>
+                    <td>{{ category.description }}</td>
+                    <td><a class="edit" href="{% url 'edit_category' pk=category.pk %}">Edit</a></td>
+                    <td><a class="delete" href="{% url 'delete_category' pk=category.pk %}">Delete</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}      
+        </table>
     </div>
-    {% endfor %}
-
-    <a href="{% url 'adding_category' %}">Ajouter une catégorie</a>
+    <div class="add_button">
+        <a href="{% url 'adding_category' %}">Add a category</a>
+    </div>
 {% endblock %}

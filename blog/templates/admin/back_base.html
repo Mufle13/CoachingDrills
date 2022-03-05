@@ -16,30 +16,31 @@
         <nav>
             <div class="account_logging">
             {% if request.user.is_authenticated %}
-            <div class='button'>
-                <i class="material-icons" style="font-size:48px;">account_circle</i>
-                <span><a href="{% url 'user_profile' %}">{{user.username}}</a></span>
-            </div>
+                <a href="{% url 'user_profile' %}">
+                    <i class="material-icons" style="font-size:48px;">account_circle</i>
+                    <span>{{user.username}}</span>
+                </a>  
             {% else%}
-            <div class='button'>
-                <i class="material-icons" style="font-size:48px;">account_circle</i>
-                <span><a href="{% url 'login' %}">Login</a></span>  
-            </div>
+                <a href="{% url 'login' %}">
+                    <i class="material-icons" style="font-size:48px;">account_circle</i>
+                    <span>Login</span> 
+                 </a>
             {% endif %}
             </div>
             <div class='menu'>
-                <div class='button'>
+                <a href="{% url 'exercise_listing' %}">
                     <i class="material-icons">sports_soccer</i>
-                    <a href="{% url 'exercise_listing' %}">Exercises</a>
-                </div>
-                <div class='button'>
+                    <span>Exercises</span>
+                </a>
+                <a href="{% url 'category_listing'%}">
                     <i class="material-icons">category</i>
-                    <a href="{% url 'category_listing'%}">Categories</a>
-                </div>
-                <div class='button'>
+                    <span>Categories</span>
+                </a>
+                <a href="{% url 'tag_listing'%}">
                     <i class="material-icons">tag</i>
-                    <a href="{% url 'tag_listing'%}">Tags</a>
-                </div>
+                    <span>Tags</span>
+                </a>
+                
             </div>
         </nav>
         <main>

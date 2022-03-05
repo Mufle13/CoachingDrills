@@ -1,43 +1,45 @@
-
-
-body {
-    margin: 0px;
-    /* background-image: url("../img/admin/football-pitch.png"); */
-    background-color: greenyellow;
-}
+/* #admin base */
 
 .main_container {
     display: flex;
-    margin: 150px;
     margin-top: 0px;
 }
+
+/* title bar */
 
 header {
     height: 100px;
     background-color: white;
     border: thin solid lightgreen;
     display: flex;
-    margin: 150px;
-    margin-top: 100px;
     margin-bottom: 0px;
     padding: 10px;
     align-items: center;
     font-size: 50px;
 }
 
+/* sidebar  */
 
 nav {
     display: flex;
     flex-direction: column;
     background-color: white;
     border: solid thin lightgreen;
-    margin: 0px;
-    padding: 20px;
-    align-items: stretch;
+    align-items: flex-start;
+    padding: 0 10px 0;
+}
+
+nav a {
+    display: flex;
+    align-items: center;
 }
 
 .account_logging {
     display: flex;
+    font-size: 20px;
+    padding-top: 10px;
+    margin: 0px;
+    justify-content: start;
 }
 
 .material-icons {
@@ -45,20 +47,20 @@ nav {
     font-size: 40px;
 }
 
-.button {
-    display: flex;
-}
 
 .menu {
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     flex-grow: 1;
-    margin: 20px 0 0;
+    margin: 20px 0px 0px;
+    padding-right: 20px;
+    padding-left: 13px;
     font-family: 'Libre Baskerville', serif;
     font-size: 15px;
-
 }
+
+/* links */
 
 a {
     text-decoration: none;
@@ -69,6 +71,8 @@ a:hover {
     color: green;
     text-decoration: none;
 }
+
+/* main content */
 
 main {
     margin: 0px;
@@ -81,19 +85,50 @@ main {
     font-family: 'Libre Baskerville', serif;
 }
 
-#exercise {
-    background-color: wheat;
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
+/* listing */
+
+table {
+    width: 100%;
+    border-spacing: 5px;
+    border-collapse: separate;
 }
 
-#exercise p {
-    margin: 0px;
+#list {
+    margin-bottom: 25px;
 }
 
-#exercise_list {
-    border: solid thin black;
-    display: flex;
-    justify-content: space-evenly;
+.listing {
+    border: solid thick lightgreen;
+    margin: 15px 0;
+    border: none;
 }
+
+thead th {
+    text-align: start;
+    padding: 0 10px;
+}
+
+
+td {
+    padding: 15px 10px;
+    border: solid thick lightgreen;
+}
+
+.delete {
+    display: block;
+    padding: 5px;
+    border: solid thin lightpink;
+    background-color: lightsalmon;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.edit {
+    display: block;
+    padding: 5px;
+    border: solid thin lightskyblue;
+    background-color: lightskyblue;
+    border-radius: 5px;
+    text-align: center;
+}
+

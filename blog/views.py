@@ -79,6 +79,7 @@ def exercise_add(request):
         form = ExerciseAddForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('exercise_listing')
     else:
         form = ExerciseAddForm()
 
@@ -94,6 +95,7 @@ def category_add(request):
         form = CategoryAddForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('category_listing')
     else:
         form = CategoryAddForm()
 
@@ -109,6 +111,7 @@ def tag_add(request):
         form = TagAddForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('tag_listing')
     else:
         form = TagAddForm()
 
@@ -125,7 +128,7 @@ def exercise_delete(request, pk):
     exercise = get_object_or_404(Exercise, pk=pk)
     if request.method == 'POST':
         exercise.delete()
-        return redirect('exercice_listing')
+        return redirect('exercise_listing')
 
     context={'exercise': exercise}
     return render(request, 'admin/deletion/exercise_deletion.html', context=context)

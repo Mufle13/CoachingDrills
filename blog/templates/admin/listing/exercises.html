@@ -3,19 +3,37 @@
     
 {%block content %}
     <h1>Exercises</h1>
-    <div id=exercise_list>
-    {% for exercise in exercises %}
-        <div id='exercise'>
-            <p><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></p>
-            <p>{{ exercise.difficulty }}</p>
-            <p>{{ exercise.description }}</p>
-        </div>
-    {% endfor %}
+    <div id=list>
+        <table>
+            <thead class="table_header">
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Tags</th>
+                    <th>Difficulty</th>
+                    <th>Number of players</th>
+                    <th>Duration</th>               
+                </tr>
+            </thead>
+            {% for exercise in exercises %}
+            <tbody>
+                <tr class="listing">
+                    <td><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></td>
+                    <td>{{ exercise.category }}</td>
+                    <td>{{ exercise.tag }}</td>
+                    <td>{{ exercise.difficulty }}</td>
+                    <td>{{ exercise.number_of_player }}</td>
+                    <td>{{ exercise.duration }}</td>
+                    <td><a class="edit" href="{% url 'edit_exercise' pk=exercise.pk %}">Edit</a></td>
+                    <td><a class="delete" href="{% url 'delete_exercise' pk=exercise.pk %}">Delete</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}      
+        </table>
     </div>
-    
-
-    <p><a href="{% url 'adding_exercise' %}">Ajouter un exercice</a></p>
+    <div class="add_button">
+        <a href="{% url 'adding_exercise' %}">Add an exercise</a>
+    </div>
+   
     
 {% endblock %}
-</body>
-</html>
