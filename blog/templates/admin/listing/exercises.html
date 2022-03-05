@@ -20,7 +20,9 @@
                 <tr class="listing">
                     <td><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></td>
                     <td>{{ exercise.category }}</td>
-                    <td>{{ exercise.tag }}</td>
+                    <td>{% for tag in exercise.tag.all %}
+                        {{ tag.name }}
+                    {% endfor %}</td>
                     <td>{{ exercise.difficulty }}</td>
                     <td>{{ exercise.number_of_player }}</td>
                     <td>{{ exercise.duration }}</td>

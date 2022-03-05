@@ -20,7 +20,7 @@ from django.contrib.auth import views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('admin/', admin_index, name='index_back'),
+    path('admin/', admin_index, name='admin'),
 
     # creation
     path('admin/exercices/ajouter', exercise_add, name="adding_exercise"),

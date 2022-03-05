@@ -50,7 +50,7 @@ nav a {
 
 .menu {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: start;
     flex-direction: column;
     flex-grow: 1;
     margin: 20px 0px 0px;
@@ -60,6 +60,10 @@ nav a {
     font-size: 15px;
 }
 
+
+.menu a {
+    padding: 10px 0;
+}
 /* links */
 
 a {
