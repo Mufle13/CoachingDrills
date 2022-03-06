@@ -2,17 +2,27 @@
 {% block title %} <title>Exercises</title> {% endblock %}
     
 {%block content %}
-    <h1>Exercises</h1>
+    <div class="header">
+        <h1>Exercises</h1>
+        <div class="add-button">
+            <a href="{% url 'adding_exercise' %}">
+                <span class="material-icons">add_circle</span>
+                <span>Add an exercise</span>
+            </a>
+        </div>
+    </div>
     <div id=list>
         <table>
-            <thead class="table_header">
+            <thead class="table-header">
                 <tr>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Tags</th>
                     <th>Difficulty</th>
                     <th>Number of players</th>
-                    <th>Duration</th>               
+                    <th>Duration</th> 
+                    <th></th>
+                    <th></th>              
                 </tr>
             </thead>
             {% for exercise in exercises %}
@@ -20,8 +30,8 @@
                 <tr class="listing">
                     <td><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></td>
                     <td>{{ exercise.category }}</td>
-                    <td>{% for tag in exercise.tag.all %}
-                        {{ tag.name }}
+                    <td class="tags">{% for tag in exercise.tag.all %}
+                        <div>{{ tag.name }}</div>
                     {% endfor %}</td>
                     <td>{{ exercise.difficulty }}</td>
                     <td>{{ exercise.number_of_player }}</td>
@@ -33,9 +43,7 @@
             {% endfor %}      
         </table>
     </div>
-    <div class="add_button">
-        <a href="{% url 'adding_exercise' %}">Add an exercise</a>
-    </div>
+    
    
     
 {% endblock %}

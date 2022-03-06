@@ -3,13 +3,23 @@
 {% block title %} <title>Categories</title> {% endblock %}
     
 {%block content %}
-    <h1>Categories</h1>
+    <div class="header">
+        <h1>Categories</h1>
+        <div class="add-button">
+            <a href="{% url 'adding_category' %}">
+                <span class="material-icons">add_circle</span>
+                <span>Add a category</span>
+            </a>
+        </div>
+    </div>
     <div id=list>
         <table>
-            <thead class="table_header">
+            <thead class="tableheader">
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>           
+                    <th>Description</th>
+                    <th></th>
+                    <th></th>         
                 </tr>
             </thead>
             {% for category in categories %}
@@ -23,8 +33,5 @@
             </tbody>
             {% endfor %}      
         </table>
-    </div>
-    <div class="add_button">
-        <a href="{% url 'adding_category' %}">Add a category</a>
     </div>
 {% endblock %}

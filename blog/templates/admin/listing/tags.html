@@ -2,13 +2,23 @@
 {% block title %} <title>Tags</title> {% endblock %}
     
 {%block content %}
-    <h1>Tags</h1>
+    <div class="header">
+        <h1>Tags</h1>
+        <div class="add-button">
+            <a href="{% url 'adding_tag' %}">
+                <span class="material-icons">add_circle</span>
+                <span>Add a tag</span>
+            </a>
+        </div>
+    </div>
     <div id=list>
         <table>
-            <thead class="table_header">
+            <thead class="table-header">
                 <tr>
                     <th>Name</th>
-                    <th>Description</th>           
+                    <th>Description</th>
+                    <th></th>
+                    <th></th>        
                 </tr>
             </thead>
             {% for tag in tags %}
@@ -22,9 +32,6 @@
             </tbody>
             {% endfor %}      
         </table>
-    </div>
-    <div class="add_button">
-        <a href="{% url 'adding_tag' %}">Add a tag</a>
     </div>
 
 {% endblock %}
