@@ -228,3 +228,8 @@ def index(request):
     }
 
     return render(request, 'index.html', context=context)
+
+#Exercise Builder
+
+def exercise_builder(request):
+    return render(request, 'admin/exercise_builder.html')

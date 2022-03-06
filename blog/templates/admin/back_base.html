@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
     {% block title %}{% endblock %}
+    {% block additonal_header %}{% endblock %}
 </head>
 <body>
     <header>
@@ -44,10 +45,9 @@
             </div>
         </nav>
         <main>
-        {% block content %}
-
-        {% endblock %}
+        {% block content %}{% endblock %}
         </main>
     </div>
+    {% block custom_js %}{% endblock %}
 </body>
 </html>

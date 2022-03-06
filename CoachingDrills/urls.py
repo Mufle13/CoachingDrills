@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from blog.views import admin_index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit, index
+from blog.views import admin_index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit, index, exercise_builder
 from django.contrib.auth import views
 
 urlpatterns = [
@@ -56,5 +56,9 @@ urlpatterns = [
     path('account/logout', logout_view, name="logout"),
     path('accounts/profile/', profile, name="user_profile"),
 
-   path('', index, name='index_front')
+   path('', index, name='index_front'),
+
+   #ExerciseBuilder
+
+   path('admin/exercise-builder', exercise_builder, name="exercise_builder"),
 ]
