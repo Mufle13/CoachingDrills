@@ -1,5 +1,6 @@
 from cProfile import label
 from dataclasses import field
+from email.policy import default
 from pyexpat import model
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -62,14 +63,17 @@ class ExerciseAddForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'name','placeholder': 'Name of your exercise'}),
             'description': forms.Textarea(attrs={'class': 'description', 
             'placeholder': 'Description of the exercise'}),
-            'category': forms.RadioSelect(attrs={'required': True,}),
+            'category': forms.RadioSelect(attrs={'required': True}),
             'tag': forms.CheckboxSelectMultiple(attrs={'class': 'tags'})
             }
 
 class CategoryAddForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = '__all__'
+        fields = [
+            'name',
+            'description'
+        ]
 
 class TagAddForm(forms.ModelForm):
     class Meta:

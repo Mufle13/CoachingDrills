@@ -3,13 +3,18 @@
 {% block title %} <title>Category,s creation</title> {% endblock %}
     
 {%block content %}
-    <h1>Création de catégories</h1>
+    <h1>Create a category</h1>
     <form method="POST">
         {% csrf_token %}
-
-        {{ form.as_p}}
-
-        <input type="submit" value="Enregistrer la catégorie">
+        <div class="form">
+            {% for field in form %}
+            <div class="fields">
+                <label class='field-label'>{{ field.label }} {% if field.field.required %}<span>* </span>{% endif %}</label>
+                <span>{{ field }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        <input type="submit" class='save-button' value="Save category">
 
 
 

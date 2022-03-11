@@ -3,6 +3,7 @@
 .main_container {
     display: flex;
     margin-top: 0px;
+    width: 100%;
 }
 
 /* title bar */
@@ -87,6 +88,7 @@ main {
     flex-grow: 1;
     flex-direction: column;
     font-family: 'Libre Baskerville', serif;
+    width: 100%;
 }
 
 /* listing */
@@ -162,25 +164,30 @@ td {
 }
 
 .tags {
-    font-size: 15px;
+    font-size: 10px;
     font-style: italic;
 }
 
 .form {
     display: flex;
     flex-flow: column wrap;
+    width: 100%;
 }
 
 .fields {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     margin: 10px;
+    width: 100%;
 }
 
 label {
     color: black;
     padding: 10px;
+    margin: 5px 0;
 }
+
 
 [type='radio']:not(checked),
 [type='radio']:checked {
@@ -206,11 +213,17 @@ label {
     flex-flow: row wrap;
     width: 30%;
     justify-content: flex-start;
+    font-size: 12px;
+}
+
+.category {
+    font-size: 12px;
 }
 
 [type='checkbox']:not(checked),
 [type='checkbox']:checked {
     display: none;
+    margin-top: 10px;
 }
 
 [type='checkbox']:not(checked) + label,
@@ -222,7 +235,77 @@ label {
     border-radius: 20px;
 }
 
+[type='checkbox']:checked + label::after {
+    content: ' ✅';
+}
+
 [type='checkbox']:checked + label {
     background-color: lightskyblue;
     color: blue;
 }
+
+.field-label {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 0;
+}
+
+.categories {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.save-button {
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    color: blue;
+    background-color: lightskyblue;
+    border: 1px solid grey;
+}
+
+[type='text'] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 250px;
+}
+
+[type='number'] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 40px;
+}
+
+[type='file'] {
+    border: 3px transparent;
+    padding: 0;
+}
+
+input:not([type='file']):hover, textarea:hover, [type='checkbox']:not(checked) + label:hover, [type='radio']:not(checked) + label:hover {
+    border: 1px solid lightskyblue;
+    transition-property: border;
+    transition-delay: 0.2s;
+    transition-duration: 0.5s;
+}
+
+input:focus, textarea:focus {
+    outline: none;; 
+    box-shadow: 0 0 10px 2px lightskyblue;
+    transition-delay: 0.2s;
+    transition-duration: 10s;
+}
+
+select {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+
+
+
+
