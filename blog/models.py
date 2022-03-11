@@ -4,8 +4,6 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class User(AbstractUser):
-    profile_pic = models.ImageField(blank=True)
 
 class Tag(models.Model):
     name = models.CharField(max_length=100)
@@ -47,7 +45,7 @@ class Exercise(models.Model):
 
     name = models.CharField(max_length=255)
     slug = models.SlugField(blank=True)
-    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     tag = models.ManyToManyField(Tag, blank=True)
     duration = models.IntegerField(blank=True, null=True)
     number_of_player = models.IntegerField(blank=True, null=True)
@@ -65,7 +63,8 @@ class Exercise(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-
+class User(AbstractUser):
+    profile_pic = models.ImageField(blank=True)
 
 class like(models.Model):
     user = models.ForeignKey(User, related_name='likes', on_delete=models.SET_NULL, null=True)

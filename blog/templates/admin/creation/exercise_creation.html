@@ -3,11 +3,29 @@
 {% block title %} <title>Exercise's creation</title> {% endblock %}
     
 {%block content %}
-    <h1>Créer un exercice</h1>
+    <h1>Create an exercise</h1>
     <form method="POST">
         {% csrf_token %}
+        <div class="form">
+            {% for field in form %}
+            <div class="fields">
+               <label>{{ field.label }}
+                {% if field.field.required %}<span>* </span>{% endif %}</label>
 
-        {{form.as_p}}
+                {% if field.name == 'category' %}
+                    {% for choice in form.category %}
+                    <div class='categories'>
+                        {{ choice.tag }}
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    </div>
+                    {% endfor %}
+                
+                {% else %}
+               <span>{{ field }}</span>
+               {% endif %}
+            </div>
+            {% endfor %}  
+        </div>              
         <input type="submit" value="Save exercise">
     </form>
 {% endblock %}

@@ -52,14 +52,18 @@ class ExerciseAddForm(forms.ModelForm):
         ]
         labels = {'name': 'Title',
             'category': 'Category',
+            'tag': 'Tag(s)',
             'duration': 'Duration',
             'number_of_player': 'Number of player',
             'difficulty': 'Difficulty',
             'picture': 'Illustration',
             'description': 'Description'}
-        widget = {
-            'category': forms.SelectMultiple,
-            'tag': forms.SelectMultiple
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'name','placeholder': 'Name of your exercise'}),
+            'description': forms.Textarea(attrs={'class': 'description', 
+            'placeholder': 'Description of the exercise'}),
+            'category': forms.RadioSelect(attrs={'required': True,}),
+            'tag': forms.CheckboxSelectMultiple(attrs={'class': 'tags'})
             }
 
 class CategoryAddForm(forms.ModelForm):

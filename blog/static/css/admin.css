@@ -166,3 +166,35 @@ td {
     font-style: italic;
 }
 
+.form {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.fields {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+label {
+    color: black;
+    padding: 10px;
+}
+
+[type='radio']:not(checked),
+[type='radio']:checked {
+    display: none;
+}
+
+[type='radio']:not(checked) + label,
+[type='radio']:checked + label {
+    padding: 5px 10px;
+    border: 1px solid lightgray;
+
+}
+
+[type='radio']:checked + label {
+    background-color: lightskyblue;
+}
+
