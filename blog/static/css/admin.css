@@ -191,10 +191,38 @@ label {
 [type='radio']:checked + label {
     padding: 5px 10px;
     border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 3px;
 
 }
 
 [type='radio']:checked + label {
     background-color: lightskyblue;
+    color: blue;
 }
 
+.tag {
+    display: flex;
+    flex-flow: row wrap;
+    width: 30%;
+    justify-content: flex-start;
+}
+
+[type='checkbox']:not(checked),
+[type='checkbox']:checked {
+    display: none;
+}
+
+[type='checkbox']:not(checked) + label,
+[type='checkbox']:checked + label {
+    display: block;
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+[type='checkbox']:checked + label {
+    background-color: lightskyblue;
+    color: blue;
+}

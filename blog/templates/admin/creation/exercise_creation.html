@@ -9,19 +9,28 @@
         <div class="form">
             {% for field in form %}
             <div class="fields">
-               <label>{{ field.label }}
-                {% if field.field.required %}<span>* </span>{% endif %}</label>
-
+                <div>
+                    <label>{{ field.label }}
+                    {% if field.field.required %}<span>* </span>{% endif %}</label>
+                </div>
                 {% if field.name == 'category' %}
                     {% for choice in form.category %}
-                    <div class='categories'>
+                        <div class='categories'>
+                            {{ choice.tag }}
+                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                {% elif field.name == 'tag' %}
+                <div class='tag'>
+                    {% for choice in form.tag %}
                         {{ choice.tag }}
                         <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                    </div>
                     {% endfor %}
-                
-                {% else %}
-               <span>{{ field }}</span>
+                </div>
+                {% elif field.name == 'duration' %}
+                    <span>{{ field }} min.</span>
+               {% else %}
+                    <span>{{ field }}</span>
                {% endif %}
             </div>
             {% endfor %}  
