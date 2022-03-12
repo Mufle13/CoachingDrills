@@ -29,13 +29,48 @@
                         {% endfor %}  
                     </div>
                     {% elif field.name == 'duration' %}
-                        <span>{{ field }} min.</span>
+                        <span>{{ field }} min.</span> 
+                    {% elif field.name == 'number_of_player' %}
+                    <span><button type='button' onclick="remove_number()" >-</button> {{ field }} <button type='button' onclick="add_number()">+</button>       <button type='button' onclick="change(6)">6</button> <button type='button' onclick="change(10)">10</button> <button type='button' onclick="change(12)">12</button></span>    
+                    
+                    {% elif field.name == 'picture' %}
+                    <div class='picture'>
+                        <span>{{ field }} </span> 
+                        <a class='add_exercise' href="{% url 'exercise_builder' %}">
+                            <span class="material-icons">add_circle</span>
+                            <span>Create an exercise</span>    
+                        </a> 
+                    </div>
                     {% else %}
                         <span>{{ field }}</span>
                     {% endif %}
             </div>
             {% endfor %}  
         </div>  
-        <input type="submit" class= 'save-button' value="Save exercise">
+        
+        <input type="submit" class='save-button' value="Save exercise">
     </form>
+{% endblock %}
+{% block custom_js %}
+<script type='text/javascript'>
+
+    document.getElementById('id_number_of_player').value = 0
+
+    function change(value) {
+        document.getElementById('id_number_of_player').value = value
+    }
+
+    function add_number() {
+       document.getElementById('id_number_of_player').value ++
+    }
+
+    function remove_number() {
+        document.getElementById('id_number_of_player').value --
+    }
+
+
+
+</script>
+
+
 {% endblock %}
