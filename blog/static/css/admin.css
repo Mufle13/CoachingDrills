@@ -294,8 +294,6 @@ input:not([type='file']):hover, textarea:hover, [type='checkbox']:not(checked) +
 input:focus, textarea:focus {
     outline: none;; 
     box-shadow: 0 0 10px 2px lightskyblue;
-    transition-delay: 0.2s;
-    transition-duration: 10s;
 }
 
 select {
