@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from blog.models import Exercise, Category, Tag, User
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 
 
 
@@ -58,7 +59,11 @@ def logout_view(request):
 @login_required
 def exercices_listing(request):
     exercises = Exercise.objects.all()
-    return render(request,'admin/listing/exercises.html', context={'exercises': exercises})
+    paginator = Paginator(exercises, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request,'admin/listing/exercises.html', context={'exercises': exercises, 'page_obj': page_obj})
 
 @login_required
 def categories_listing(request):

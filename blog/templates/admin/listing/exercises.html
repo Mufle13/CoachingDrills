@@ -25,7 +25,7 @@
                     <th></th>              
                 </tr>
             </thead>
-            {% for exercise in exercises %}
+            {% for exercise in page_obj %}
             <tbody>
                 <tr class="listing">
                     <td><a href="{% url 'exercise_detail' pk=exercise.pk %}">{{ exercise.name }}</a></td>
@@ -40,10 +40,24 @@
                     <td><a class="delete" href="{% url 'delete_exercise' pk=exercise.pk %}">Delete</a></td>
                 </tr>
             </tbody>
-            {% endfor %}      
+            {% endfor %}
+            <div class="pagination">
+                <span class="pages">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                    {% endif %}
+                </span>
+            </div>   
         </table>
     </div>
-    
-   
-    
 {% endblock %}
