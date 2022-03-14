@@ -11,6 +11,18 @@
             </a>
         </div>
     </div>
+    <div class='search-bar'>
+        <form method='get'>
+            <span class="material-icons">
+                search
+            </span>
+            <input type="text" placeholder="Search for exercise" name='search'>
+            <input class='search-button' type="submit" value='Search'>
+        </form>
+    </div>
+    {% if not exercises %}
+    <p>No result</p>
+    {% else %}
     <div id=list>
         <table>
             <thead class="table-header">
@@ -60,4 +72,5 @@
             </div>   
         </table>
     </div>
+    {% endif %}
 {% endblock %}

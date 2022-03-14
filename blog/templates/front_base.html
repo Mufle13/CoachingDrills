@@ -1,20 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
     {% block title %}{% endblock %}
+    {% block additonal_header %}{% endblock %}
 </head>
 <body>
-   <a href="{% url 'index_front' %}">CoachingDrill</a>
     <header>
-            {% if request.user.is_authenticated %}
-            <a href="{% url 'user_profile' %}">{{user.username}}</a>
-            {% else%}
-            <a href="{% url 'login' %}">Login</a>
-            {% endif %}
+        <a id="main_title" href="{% url 'index_front' %}">CoachingDrill</a>
     </header>
+    <div class='main_container'>
+        <nav>
+            <div class="account_logging">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'user_profile' %}">
+                    <i class="material-icons" style="font-size:48px;">account_circle</i>
+                    <span>{{user.username}}</span>
+                </a>  
+            {% else%}
+                <a href="{% url 'login' %}">
+                    <i class="material-icons" style="font-size:48px;">account_circle</i>
+                    <span>Login</span> 
+                 </a>
+            {% endif %}
+            </div>
+            <div class='menu'>
+                <a href="{% url 'font_exercises_listing' %}">
+                    <i class="material-icons">sports_soccer</i>
+                    <span>Exercises</span>
+                </a>
+            </div>
+        </nav>
+        <main>
+        {% block content %}{% endblock %}
+        </main>
+    </div>
+    {% block custom_js %}{% endblock %}
 </body>
-{% block content %}
-
-{% endblock %}
 </html>

@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from blog.models import Exercise, Category, Tag, User
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 
@@ -58,7 +59,13 @@ def logout_view(request):
 # Listing views
 @login_required
 def exercices_listing(request):
-    exercises = Exercise.objects.all()
+    query = request.GET.get('search')
+
+    if query:
+        exercises = Exercise.objects.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
+    else: 
+        exercises = Exercise.objects.all()
+
     paginator = Paginator(exercises, 3)
 
     page_number = request.GET.get('page')
@@ -222,6 +229,9 @@ def tag_edit(request, pk):
 
     return render(request, 'admin/edit/tag.html', context=context)
 
+#Exercise Builder
+def exercise_builder(request):
+    return render(request, 'admin/exercise_builder.html')
 
 # font
 def index(request):
@@ -229,12 +239,22 @@ def index(request):
     user = request.user
     context = {
         'user': user,
-        'exercises': exercises
     }
+    return render(request, 'font/index.html', context=context)
 
-    return render(request, 'index.html', context=context)
+# listing
+def font_exercises_listing(request):
+    query = request.GET.get('search')
 
-#Exercise Builder
+    if query:
+        exercises = Exercise.objects.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
+    else: 
+        exercises = Exercise.objects.all()
 
-def exercise_builder(request):
-    return render(request, 'admin/exercise_builder.html')
+    paginator = Paginator(exercises, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render (request, 'font/listing/font_exercises_listing.html', context={'exercises': exercises, 'page_obj':page_obj})
+
+

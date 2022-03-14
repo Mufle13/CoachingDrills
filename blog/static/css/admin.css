@@ -290,14 +290,14 @@ label {
     padding: 0;
 }
 
-input:not([type='file']):hover, textarea:hover, [type='checkbox']:not(checked) + label:hover, [type='radio']:not(checked) + label:hover {
+input:not([type='file']):hover, .search-bar form:hover, textarea:hover, [type='checkbox']:not(checked) + label:hover, [type='radio']:not(checked) + label:hover {
     border: 1px solid lightskyblue;
     transition-property: border;
     transition-delay: 0.2s;
     transition-duration: 0.5s;
 }
 
-input:focus, textarea:focus {
+input:focus, .search-bar form:focus, textarea:focus {
     outline: none;; 
     box-shadow: 0 0 10px 2px lightskyblue;
 }
@@ -343,10 +343,38 @@ input::-webkit-inner-spin-button {
     border: 1px solid lightskyblue;
 }
 
+.search-bar {
+    display: flex;
+    align-content: center;
+    justify-content: flex-end;
+}
 
+.search-bar form {
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 10px;
+    display: flex;
+    align-content: center;
+    width: 230px;
+}
 
+.search-bar input {
+    border: none;
+}
 
+.search-bar input:hover {
+    border: none;
+    box-shadow: none;
+}
 
+.search-bar input:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.search-button {
+    display: none;
+    }
 
 
 
