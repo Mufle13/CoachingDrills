@@ -3,7 +3,7 @@ from inspect import formatannotation
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm
+from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, FilterCategTag
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -59,18 +59,17 @@ def logout_view(request):
 # Listing views
 @login_required
 def exercices_listing(request):
-    query = request.GET.get('search')
-
-    if query:
-        exercises = Exercise.objects.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
-    else: 
-        exercises = Exercise.objects.all()
+    if request.method == 'GET':
+        form = FilterCategTag(request.GET)
+        if form.is_valid():
+           exercises = Exercise.objects.filter(Q(name__icontains=form)|Q(category__name__icontains=form)|Q(tag__name__icontains=form))
+        else:
+            form = FilterCategTag
 
     paginator = Paginator(exercises, 3)
-
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request,'admin/listing/exercises.html', context={'exercises': exercises, 'page_obj': page_obj})
+    return render(request,'admin/listing/exercises.html', context={'exercises': exercises, 'page_obj': page_obj, 'form':form})
 
 @login_required
 def categories_listing(request):
@@ -245,7 +244,7 @@ def index(request):
 # listing
 def font_exercises_listing(request):
     query = request.GET.get('search')
-
+   
     if query:
         exercises = Exercise.objects.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
     else: 
