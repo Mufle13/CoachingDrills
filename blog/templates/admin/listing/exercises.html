@@ -11,37 +11,34 @@
             </a>
         </div>
     </div>
-    <div class='search-bar'>
-        <form method='get'>
-            <span class="material-icons">
-                search
-            </span>
-            <input type="text" placeholder="Search for exercise" name='search'>
-            <input class='search-button' type="submit" value='Search'>
-        </form>
-    </div>
     <form method="GET">
-        <div class="form">
+        <div class='filters'>
             {% for field in form %}
-            <div class="fields">
+            <div>
                     <label class='field-label'>{{ field.label }}</label>
                     
-                    {% if field.name == 'category' %}
-                    <div class='categories'>
-                        {% for choice in form.category %}
-                            <div class='category'>
+                    {% if field.name == 'categories' %}
+                    <div class='filter-categories'>
+                        {% for choice in form.categories %}
+                            <div class='filter-category'>
                                 {{ choice.tag }}
                                 <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                             </div>
                         {% endfor %}
                     </div>
-                    {% elif field.name == 'tag' %}
-                    <div class='tag'>
-                        {% for choice in form.tag %}
+                    {% elif field.name == 'tags' %}
+                    <div class='filter-tags'>
+                        {% for choice in form.tags %}
+                        <div class='filter-tag'>
                             {{ choice.tag }}
                             <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                        {% endfor %}  
+                        </div>
+                        {% endfor %} 
                     </div>
+                    {% elif field.name == 'research' %}
+                    <div class='filter-research'>
+                        <span> {{ field }}</span>
+                    </div> 
                     {% endif %}
             </div>
             {% endfor %}  
@@ -93,10 +90,13 @@
                     </span>
             
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
+                        <a href="?page={{ page_obj.next_page_number }}{% if request.GET.categories %}{% for categ in request.GET.categories %}&categories={{ categ }}{% endfor %}{% endif %}{% if request.GET.tags %}&tags={{ request.GET.tags}}{% endif %}&research={{ request.GET.research }}">next</a>
                         <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">last</a>
                     {% endif %}
                 </span>
+                {% if request.GET.categories|length > 1 %}
+                        {{categ}}
+                {% endif %}    
             </div>   
         </table>
     </div>

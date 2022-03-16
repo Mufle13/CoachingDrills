@@ -62,7 +62,17 @@ def exercices_listing(request):
     if request.method == 'GET':
         form = FilterCategTag(request.GET)
         if form.is_valid():
-           exercises = Exercise.objects.filter(Q(name__icontains=form)|Q(category__name__icontains=form)|Q(tag__name__icontains=form))
+            data = form.cleaned_data
+            categories = data['categories']
+            tags = data['tags'] 
+            query= data['research']
+            exercises = Exercise.objects.all()
+            if categories:
+                exercises = exercises.filter(category__in=categories)
+            if tags:
+                exercises = exercises.filter(tag__in=tags)
+            if query:
+                exercises = exercises.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
         else:
             form = FilterCategTag
 

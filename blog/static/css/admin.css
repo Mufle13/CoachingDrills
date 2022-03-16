@@ -343,38 +343,23 @@ input::-webkit-inner-spin-button {
     border: 1px solid lightskyblue;
 }
 
-.search-bar {
+
+.filters {
     display: flex;
-    align-content: center;
-    justify-content: flex-end;
+    flex-flow: row wrap;
+    border: solid;
+    justify-content: space-around;
+
 }
 
-.search-bar form {
-    border: 1px solid lightgray;
-    padding: 5px;
-    border-radius: 10px;
+.filter-categories {
     display: flex;
-    align-content: center;
-    width: 230px;
+    flex-flow: row wrap;
+    border: solid;
 }
 
-.search-bar input {
-    border: none;
+.filter-category {
+   display: flex;
+   flex-flow: row wrap;
+   font-size: 12px;
 }
-
-.search-bar input:hover {
-    border: none;
-    box-shadow: none;
-}
-
-.search-bar input:focus {
-    border: none;
-    box-shadow: none;
-}
-
-.search-button {
-    display: none;
-    }
-
-
-

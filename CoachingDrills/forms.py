@@ -1,8 +1,3 @@
-from cProfile import label
-from dataclasses import field
-from email.policy import default
-from pyexpat import model
-from tkinter import Widget
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from blog.models import Category, Tag, User, Exercise
@@ -83,7 +78,7 @@ class TagAddForm(forms.ModelForm):
 
 
 class FilterCategTag(forms.Form):
-    category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Categories', widget=forms.CheckboxSelectMultiple, required=False)
-    tag = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
+    categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Categories', widget=forms.CheckboxSelectMultiple, required=False)
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
     research = forms.CharField(max_length=100, required=False)
 
