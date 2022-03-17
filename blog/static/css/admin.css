@@ -346,23 +346,66 @@ input::-webkit-inner-spin-button {
 
 .filters {
     display: flex;
-    flex-flow: row wrap;
-    border: solid;
-    justify-content: space-around;
+    justify-content: space-between;
 
 }
 
 .filter-categories {
     display: flex;
     flex-flow: row wrap;
-    border: solid;
+    justify-content: flex-start;
+    font-size: 12px;
 }
 
-.filter-category {
-   display: flex;
-   flex-flow: row wrap;
-   font-size: 12px;
+.filter-tags {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    font-size: 12px;
 }
+
+.filters [type='checkbox']:checked + label::after {
+    content: none;
+}
+
+.filter-research {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter-research span {
+    padding-right: 20px;
+}
+
+.filter-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-button input {
+    padding: 5px 20px;
+    margin-right: 10px;
+    border: 1px solid lightgray;
+    background-color: lightskyblue;
+    border-radius: 10px;
+}
+
+.filter-button input:hover {
+    border: 1px solid lightskyblue;
+    color: blue;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-style: italic;
+}
+
+
 
 .count {
     display: flex;

@@ -12,38 +12,36 @@
             </a>
         </div>
     </div>
+    <div>
+        <p>Filters</p>
+    </div>
     <form method="GET">
         <div class='filters'>
             {% for field in form %}
-            <div>
-                    <label class='field-label'>{{ field.label }}</label>
-                    
-                    {% if field.name == 'categories' %}
-                    <div class='filter-categories'>
-                        {% for choice in form.categories %}
-                            <div class='filter-category'>
-                                {{ choice.tag }}
-                                <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    {% elif field.name == 'tags' %}
-                    <div class='filter-tags'>
-                        {% for choice in form.tags %}
-                        <div class='filter-tag'>
-                            {{ choice.tag }}
-                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                        </div>
-                        {% endfor %} 
-                    </div>
-                    {% elif field.name == 'research' %}
-                    <div class='filter-research'>
-                        <span> {{ field }}</span>
-                    </div> 
-                    {% endif %}
+                <label class='filter-label'>{{ field.label }}</label>
+                {% if field.name == 'categories' %}
+                <div class='filter-categories'>
+                    {% for choice in form.categories %}
+                        {{ choice.tag }}
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    {% endfor %}
+                </div>
+                {% elif field.name == 'tags' %}
+                <div class='filter-tags'>
+                    {% for choice in form.tags %}
+                        {{ choice.tag }}
+                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                    {% endfor %} 
+                </div>
+                {% elif field.name == 'research' %}
+                <div class='filter-research'>
+                    <span> {{ field }}</span>
+                </div> 
+                {% endif %}
+            {% endfor %} 
+            <div class=filter-button> 
+                <input type="submit" value='Filter'>
             </div>
-            {% endfor %}  
-            <input type="submit" value='Filter'>
         </div>  
     </form>
     {% if not exercises %}
