@@ -75,11 +75,11 @@ def exercices_listing(request):
                 exercises = exercises.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
         else:
             form = FilterCategTag
-
+    exercises_count = exercises.count()
     paginator = Paginator(exercises, 3)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get('page') 
     page_obj = paginator.get_page(page_number)
-    return render(request,'admin/listing/exercises.html', context={'exercises': exercises, 'page_obj': page_obj, 'form':form})
+    return render(request,'admin/listing/exercises.html', context={'exercises': exercises, 'page_obj': page_obj, 'form':form, 'exercises_count': exercises_count})
 
 @login_required
 def categories_listing(request):

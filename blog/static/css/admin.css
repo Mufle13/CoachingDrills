@@ -363,3 +363,22 @@ input::-webkit-inner-spin-button {
    flex-flow: row wrap;
    font-size: 12px;
 }
+
+.count {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.pages a {
+    border: 1px solid lightgray;
+    padding: 2px;
+}
+
+.current {
+    border: 1px solid lightgray;
+    padding: 2px;
+    background-color: lightskyblue;
+}
