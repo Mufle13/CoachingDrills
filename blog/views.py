@@ -76,8 +76,8 @@ def exercices_listing(request):
         else:
             form = FilterCategTag
 
-    sort= request.GET.get('sort')
-    sortreverse = request.GET.get('sortreverse')
+    sort= request.GET.get('sort', False)
+    sortreverse = request.GET.get('sortreverse', False)
 
     authorized_sorting_field = [
         'name',
@@ -90,7 +90,8 @@ def exercices_listing(request):
 
     if sort:
         if sort in authorized_sorting_field:
-            exercises = exercises.order_by(sort)
+            if sortreverse:
+                exercises = exercises.order_by(sort)
 
     if sortreverse:
         if sortreverse in authorized_sorting_field:
