@@ -75,6 +75,29 @@ def exercices_listing(request):
                 exercises = exercises.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
         else:
             form = FilterCategTag
+
+    sort= request.GET.get('sort')
+    sortreverse = request.GET.get('sortreverse')
+
+    authorized_sorting_field = [
+        'name',
+        'category',
+        'duration',
+        'number_of_player',
+        'difficulty',
+        'tag'
+    ]
+
+    if sort:
+        if sort in authorized_sorting_field:
+            exercises = exercises.order_by(sort)
+
+    if sortreverse:
+        if sortreverse in authorized_sorting_field:
+            exercises = exercises.order_by(f'-{sortreverse}')
+
+    
+
     exercises_count = exercises.count()
     paginator = Paginator(exercises, 3)
     page_number = request.GET.get('page') 
@@ -97,7 +120,7 @@ def tags_listing(request):
 def exercise_add(request): 
     context = {}
     if request.method == 'POST':
-        form = ExerciseAddForm(request.POST)
+        form = ExerciseAddForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('exercise_listing')
@@ -200,7 +223,7 @@ def tag_detail(request, pk):
 def exercise_edit(request, pk):
     exercise = get_object_or_404(Exercise, pk=pk)
     if request.method == 'POST':
-        form = ExerciseAddForm(request.POST, instance=exercise)
+        form = ExerciseAddForm(request.POST, request.FILES, instance=exercise)
         if form.is_valid:
             form.save()
             return redirect('exercise_listing')

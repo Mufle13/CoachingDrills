@@ -4,7 +4,7 @@
     
 {%block content %}
     <h1>Create an exercise</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form">
             {% for field in form %}

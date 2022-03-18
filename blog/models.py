@@ -1,6 +1,8 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
+from pkg_resources import to_filename
 
 # Create your models here.
 
@@ -49,7 +51,7 @@ class Exercise(models.Model):
     tag = models.ManyToManyField(Tag, blank=True)
     duration = models.IntegerField(blank=True, null=True)
     number_of_player = models.IntegerField(blank=True, null=True)
-    picture = models.ImageField(blank=True, null=True)
+    picture = models.ImageField(upload_to='exercises_pic', blank=True, null=True)
     description = models.TextField(blank=True)
     difficulty = models.CharField(max_length=2, choices=DIFFICULTY, default=FACILE)
 

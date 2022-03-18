@@ -11,6 +11,10 @@
         <li>Difficulty: {{exercise.difficulty}}</li>
     </ul>
 
+    <div>
+        {{ exercise.picture }}
+    </div>
+
 
     <p><a href="{% url 'edit_exercise' pk=exercise.pk %}">Edit</a></p>
     <p><a href="{% url 'delete_exercise' pk=exercise.pk %}">Delete</a></p>
