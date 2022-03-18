@@ -85,17 +85,19 @@ def exercices_listing(request):
         'duration',
         'number_of_player',
         'difficulty',
-        'tag'
+        'tag',
+        '-name',
+        '-category',
+        '-duration',
+        '-number_of_player',
+        '-difficulty',
+        '-tag'
     ]
 
     if sort:
         if sort in authorized_sorting_field:
-            if sortreverse:
-                exercises = exercises.order_by(sort)
+            exercises = exercises.order_by(sort)
 
-    if sortreverse:
-        if sortreverse in authorized_sorting_field:
-            exercises = exercises.order_by(f'-{sortreverse}')
 
     
 
