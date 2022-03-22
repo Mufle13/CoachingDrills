@@ -7,16 +7,19 @@ from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm,
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from blog.models import Exercise, Category, Tag, User
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.views.generic import TemplateView, ListView
+import markdown as md
 
 
 
 
 # Cutom admin page
-@login_required
+@staff_member_required(login_url='login')
 def admin_index(request):
     user = request.user
     context = {'user': user}
@@ -31,7 +34,7 @@ def signup(request):
         form = CustiomSignupForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse(f'Bienvenue {request.POST.get("first_name")} !')
+            return HttpResponse(f'Welcome {request.POST.get("first_name")} !')
         else:
             context['errors'] = form.errors
     else: 
@@ -77,8 +80,6 @@ def exercices_listing(request):
             form = FilterCategTag
 
     sort= request.GET.get('sort', False)
-    sortreverse = request.GET.get('sortreverse', False)
-
     authorized_sorting_field = [
         'name',
         'category',
@@ -277,19 +278,30 @@ def index(request):
     }
     return render(request, 'font/index.html', context=context)
 
+# About
+
+class About(TemplateView):
+    template_name = 'font/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        with open('blog/markdown_texts/about.md', 'r', encoding='utf-8') as f:
+            about = md.markdown(f.read())
+        context['about'] = about
+        return context
+
 # listing
-def font_exercises_listing(request):
-    query = request.GET.get('search')
-   
-    if query:
-        exercises = Exercise.objects.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
-    else: 
-        exercises = Exercise.objects.all()
+class ExerciseListing(ListView):
+    model = Exercise
+    template_name = 'font/listing/exercises_listing.html'
+    context_object_name = 'exercises'
 
-    paginator = Paginator(exercises, 3)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        exercises_count = self.object_list.count()
+        context['count'] = exercises_count
+        return context
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render (request, 'font/listing/font_exercises_listing.html', context={'exercises': exercises, 'page_obj':page_obj})
+
 
 
