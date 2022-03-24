@@ -299,8 +299,30 @@ class ExerciseListing(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         exercises_count = self.object_list.count()
+        form = FilterCategTag()
+        context['form'] = form
         context['count'] = exercises_count
         return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.method == 'GET':
+            form = FilterCategTag(self.request.GET)
+            if form.is_valid():
+                data = form.cleaned_data
+                categories = data['categories']
+                tags = data['tags'] 
+                query= data['research']
+                if categories:
+                    queryset = queryset.filter(category__in=categories)
+                if tags:
+                    queryset = queryset.filter(tag__in=tags)
+                if query:
+                    queryset = queryset.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
+            # else:
+            #     form = FilterCategTag()
+
+        return queryset
 
 
 

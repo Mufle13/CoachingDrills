@@ -1,4 +1,5 @@
 {% extends 'front_base.html' %}
+{% load custom_tag  %}
 
 {% block title %}<title>Coaching Drill</title>{% endblock %}
 
@@ -6,15 +7,38 @@
 <div class="header">
     <h1>Exercises</h1>
 </div>
-<div class='search-bar'>
-    <form method='get'>
-        <span class="material-icons">
-            search
-        </span>
-        <input type="text" placeholder="Search for exercise" name='search'>
-        <input class='search-button' type="submit" value='Search'>
-    </form>
+<div>
+    <p>Filters</p>
 </div>
+<form method="GET">
+    <div class='filters'>
+        {% for field in form %}
+            <label class='filter-label'>{{ field.label }}</label>
+            {% if field.name == 'categories' %}
+            <div class='filter-categories'>
+                {% for choice in form.categories %}
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                {% endfor %}
+            </div>
+            {% elif field.name == 'tags' %}
+            <div class='filter-tags'>
+                {% for choice in form.tags %}
+                    {{ choice.tag }}
+                    <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                {% endfor %} 
+            </div>
+            {% elif field.name == 'research' %}
+            <div class='filter-research'>
+                <span> {{ field }}</span>
+            </div> 
+            {% endif %}
+        {% endfor %} 
+        <div class=filter-button> 
+            <input type="submit" value='Filter'>
+        </div>
+    </div>  
+</form>
 {% if not exercises %}
 <p>No result</p>
 {% else %}
@@ -48,6 +72,23 @@
     <div>
         <p>{{ count }} exercises</p>
     </div>
+    <div class="pagination">
+        <span class="pages">
+            {% if page_obj.has_previous %}
+                <a href="?{% replace_page 1 %}">&#171</a>
+                <a href="?{% replace_page page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+    
+            
+        <span class="current">{{ page_obj.number }}</span>
+            
+    
+            {% if page_obj.has_next %}
+                <a href="?{% replace_page page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+                <a href="?{% replace_page page_obj.paginator.num_pages %}">&#187</a>
+            {% endif %}
+        </span>
+    </div>  
 </div>
 {% endif %}
 {% endblock %}
