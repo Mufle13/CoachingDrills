@@ -3,15 +3,15 @@ from inspect import formatannotation
 from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, FilterCategTag
+from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, FilterCategTag, FavouriteForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from blog.models import Exercise, Category, Tag, User
+from blog.models import Exercise, Category, Tag, User, Favourite
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.views.generic import TemplateView, ListView
 import markdown as md
 
@@ -55,7 +55,7 @@ def profile(request):
 def logout_view(request):
     first_name = request.user.first_name
     logout(request)
-    messages.add_message(request, messages.INFO, f'Merci {first_name}, au revoir.')
+    messages.add_message(request, messages.INFO, f'Goodbye {first_name}, see you later.')
     return redirect('login')
 
 
@@ -295,6 +295,7 @@ class ExerciseListing(ListView):
     model = Exercise
     template_name = 'font/listing/exercises_listing.html'
     context_object_name = 'exercises'
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -306,6 +307,7 @@ class ExerciseListing(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.annotate(user_like=Count('likes', filter=Q(likes__user=self.request.user)))
         if self.request.method == 'GET':
             form = FilterCategTag(self.request.GET)
             if form.is_valid():
@@ -313,6 +315,9 @@ class ExerciseListing(ListView):
                 categories = data['categories']
                 tags = data['tags'] 
                 query= data['research']
+                like = data['like']
+                if like is True:
+                    queryset = queryset.filter(user_like=1)
                 if categories:
                     queryset = queryset.filter(category__in=categories)
                 if tags:
@@ -323,6 +328,22 @@ class ExerciseListing(ListView):
             #     form = FilterCategTag()
 
         return queryset
+
+
+
+def favourite(request, pk):
+    if request.method == 'POST':
+        exercise = get_object_or_404(Exercise, pk=pk)
+        user = request.user
+        check = Favourite.objects.filter(exercise=exercise, user=user)
+        if not check:
+            fav = Favourite(exercise=exercise, user=user)
+            fav.save()
+        else:
+            check.delete()  
+        messages.add_message(request, messages.INFO, 'Added!')
+        print(request.META.get('HTTP_REFERER'))
+    return redirect('exercises_list_font')
 
 
 

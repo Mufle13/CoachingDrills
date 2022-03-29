@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from blog.models import Category, Tag, User, Exercise
+from blog.models import Category, Favourite, Tag, User, Exercise
 
 class CustiomSignupForm(UserCreationForm):
     class Meta:
@@ -81,4 +81,10 @@ class FilterCategTag(forms.Form):
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Categories', widget=forms.CheckboxSelectMultiple, required=False)
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
     research = forms.CharField(max_length=100, required=False)
+    like = forms.BooleanField(required=False)
+
+class FavouriteForm(forms.Form):
+    class Meta:
+        model = Favourite
+        fields = '__all__'
 

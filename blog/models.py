@@ -2,7 +2,6 @@ from distutils.command.upload import upload
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
-from pkg_resources import to_filename
 
 # Create your models here.
 
@@ -68,7 +67,7 @@ class Exercise(models.Model):
 class User(AbstractUser):
     profile_pic = models.ImageField(blank=True)
 
-class like(models.Model):
+class Favourite(models.Model):
     user = models.ForeignKey(User, related_name='likes', on_delete=models.SET_NULL, null=True)
     exercise = models.ForeignKey(Exercise, related_name='likes', on_delete=models.SET_NULL, null=True)
 

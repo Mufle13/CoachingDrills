@@ -425,3 +425,16 @@ input::-webkit-inner-spin-button {
     padding: 2px;
     background-color: lightskyblue;
 }
+
+.like [type=checkbox] {
+    display: flex;
+    align-self: center;
+}
+
+.like {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 5px;
+}

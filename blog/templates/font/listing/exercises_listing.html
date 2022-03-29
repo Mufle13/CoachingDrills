@@ -32,6 +32,10 @@
             <div class='filter-research'>
                 <span> {{ field }}</span>
             </div> 
+            {% elif field.name == 'like' %}
+            <div class='like'>
+                {{ field }}
+            </div>
             {% endif %}
         {% endfor %} 
         <div class=filter-button> 
@@ -51,7 +55,10 @@
                 <th>Tags</th>
                 <th>Difficulty</th>
                 <th>Number of players</th>
-                <th>Duration</th>             
+                <th>Duration</th>
+                {% if request.user.is_authenticated %}
+                <th>Favourite</th>
+                {% endif %}             
             </tr>
         </thead>
         {% for exercise in exercises %}
@@ -65,6 +72,18 @@
                 <td>{{ exercise.difficulty }}</td>
                 <td>{{ exercise.number_of_player }}</td>
                 <td>{{ exercise.duration }}</td>
+                {% if request.user.is_authenticated %}
+                    <td>
+                        <form action="{% url 'favourite' pk=exercise.pk %}" method="POST">
+                            {% csrf_token %}
+                            {% if exercise.user_like %}
+                            <input type="submit" value='remove'>
+                            {% else %}
+                            <input type="submit" value='add to fav'>
+                            {% endif %}
+                        </form>
+                    </td>
+                {% endif %}
             </tr>
         </tbody>
         {% endfor %}
