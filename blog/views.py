@@ -1,7 +1,7 @@
 from audioop import reverse
 from inspect import formatannotation
 from multiprocessing import context
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, FilterCategTag, FavouriteForm
 from django.contrib.auth import logout
@@ -307,6 +307,7 @@ class ExerciseListing(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.annotate(like_number=Count('likes'))
         queryset = queryset.annotate(user_like=Count('likes', filter=Q(likes__user=self.request.user)))
         if self.request.method == 'GET':
             form = FilterCategTag(self.request.GET)
@@ -339,11 +340,11 @@ def favourite(request, pk):
         if not check:
             fav = Favourite(exercise=exercise, user=user)
             fav.save()
+            message = 'liked'
         else:
-            check.delete()  
-        messages.add_message(request, messages.INFO, 'Added!')
-        print(request.META.get('HTTP_REFERER'))
-    return redirect('exercises_list_font')
+            check.delete() 
+            message = 'unliked' 
+    return JsonResponse({'message': message})
 
 
 
