@@ -1,0 +1,59 @@
+{% extends 'front_base.html' %}
+{% load custom_tag  %}
+
+{% block title %}<title>{{ exercise.name }}</title>{% endblock %}
+
+{% block content %}
+
+<p>{{exercise.name}} ({{exercise.category}})</p>
+<div class='exercise-top-bar'>
+    <div class='exercise-info'>
+        {% for tag in exercise.tag.all %}
+        <span>{{tag}}</span>
+        {% endfor %}
+        <span>Difficulty: {{exercise.difficulty}}</span>
+        <span>Duration: {{exercise.duration}} minutes</span>
+        <span>{{exercise.number_of_player}} players</span>
+    </div>
+    <div class='exercise_like'>
+        {% if request.user.is_authenticated %}
+            {% if exercise.user_like %}
+                <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')" class='fav2'><span class="material-icons">
+                    thumb_up
+                    </span></span>
+            {% else %}
+                <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')" class='fav'><span class="material-icons">
+                    thumb_up
+                    </span></span>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<div class=exercise-content>
+    {% if exercise.picture %}
+    <img src="{{exercise.picture.url}}" alt="piicture showing the exercise">
+    {% endif %}
+    <p>{{exercise.description}}</p>
+</div>
+
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    function like(pk) {
+        let url = '/fav/' + pk
+        axios.post(url, {})
+        .then(reponse => {
+            console.log(reponse.data)
+            let like_action = reponse.data.message
+            let element = document.getElementById('like_' + pk)
+            if(like_action == 'liked') {
+            element.classList.add('fav2')}
+            else {
+            element.setAttribute('class', 'fav')}
+        })
+        .catch(error => {})
+    }
+</script>
+{% endblock %}

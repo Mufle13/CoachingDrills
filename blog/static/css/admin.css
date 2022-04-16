@@ -426,15 +426,57 @@ input::-webkit-inner-spin-button {
     background-color: lightskyblue;
 }
 
-.like [type=checkbox] {
+.like2 [type=checkbox] {
     display: flex;
     align-self: center;
 }
 
-.like {
+.like2 {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 5px;
     margin: 5px;
+}
+
+.fav {
+    color: lightgrey;
+    cursor: pointer;
+}
+
+.fav2 {
+    color: lightskyblue;
+    cursor: pointer;
+}
+  
+.fav2 .material-icons {
+    cursor: pointer;
+    animation: bump 0.5s;
+    transform: scale(1);
+  }
+
+  @keyframes bump {
+    50% {
+      transform: scale(1.5);
+    }
+  }
+
+.description-field {
+    display: flex;
+    width: 100%;
+    flex-flow: row wrap;
+    align-items: start;
+}
+
+.description-field span {
+    margin: 0 10px;
+}
+
+.preview-md {
+    border: 1px solid black;
+    padding: 5px;
+    font-size: 12px;
+    flex-grow: 3;
+    min-height: 154px;
+    max-width: 30%;
 }

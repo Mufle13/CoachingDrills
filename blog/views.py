@@ -1,6 +1,7 @@
 from audioop import reverse
 from inspect import formatannotation
 from multiprocessing import context
+from pyexpat import model
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, FilterCategTag, FavouriteForm
@@ -12,7 +13,7 @@ from blog.models import Exercise, Category, Tag, User, Favourite
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView
 import markdown as md
 
 
@@ -347,5 +348,15 @@ def favourite(request, pk):
     return JsonResponse({'message': message})
 
 
+class ExerciseDetails(DetailView):
+    model = Exercise
+    template_name = 'font/detail/exercises_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        instance = self.get_object()
+        instance.description = md.markdown(instance.description)
+        context['object'] = instance
+        return context
+    
 

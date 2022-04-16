@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import include, path
-from blog.views import admin_index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit, index, exercise_builder, About, ExerciseListing, favourite
+from blog.views import admin_index, signup, profile, exercise_add, logout_view, exercices_listing, tags_listing, categories_listing, category_add, tag_add, exercise_delete, category_delete, tag_delete, exercise_detail, category_detail, tag_detail, exercise_edit, tag_edit, category_edit, index, exercise_builder, About, ExerciseListing, favourite, ExerciseDetails
 from django.contrib.auth import views
 
 urlpatterns = [
@@ -64,8 +66,10 @@ urlpatterns = [
    path('', index, name='index_front'),
    path('about', About.as_view(), name='about'),
    path('exercises', ExerciseListing.as_view(),name= 'exercises_list_font'),
-   path('fav/<int:pk>', favourite, name='favourite')
+   path('fav/<int:pk>', favourite, name='favourite'),
+   path('exercise/<int:pk>', ExerciseDetails.as_view(), name= 'exercise_details_font')
 
-
-  
 ]
+
+if settings.DEBUG is True:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

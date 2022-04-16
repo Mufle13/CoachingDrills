@@ -7,7 +7,53 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        {{ form.as_p}}
+        <div class="form">
+            {% for field in form %}
+            <div class="fields">
+                    <label class='field-label'>{{ field.label }} {% if field.field.required %}<span>* </span>{% endif %}</label>
+                    
+
+                    {% if field.name == 'category' %}
+                    <div class='categories'>
+                        {% for choice in form.category %}
+                            <div class='category'>
+                                {{ choice.tag }}
+                                <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% elif field.name == 'tag' %}
+                    <div class='tag'>
+                        {% for choice in form.tag %}
+                            {{ choice.tag }}
+                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                        {% endfor %}  
+                    </div>
+                    {% elif field.name == 'duration' %}
+                        <span>{{ field }} min.</span> 
+                    {% elif field.name == 'number_of_player' %}
+                    <span><button type='button' onclick="remove_number()" >-</button> {{ field }} <button type='button' onclick="add_number()">+</button>       <button type='button' onclick="change(6)">6</button> <button type='button' onclick="change(10)">10</button> <button type='button' onclick="change(12)">12</button></span>    
+                    
+                    {% elif field.name == 'picture' %}
+                    <div class='picture'>
+                        <span>{{ field }} </span> 
+                        <a class='add_exercise' href="{% url 'exercise_builder' %}">
+                            <span class="material-icons">add_circle</span>
+                            <span>Create an exercise</span>    
+                        </a> 
+                    </div>
+                    {% elif field.name == 'description' %}
+                    <div class='description-field'>
+                        <span id='descritpion-md'>{{ field }}</span>
+                        <button id="md-button" type="button" onclick="md_to_html()">Markdown baby</button>
+                        <span id='markdown-preview'></span>
+                    </div>
+                    {% else %}
+                    <span>{{ field }}</span> 
+                    {% endif %}
+            </div>
+            {% endfor %}  
+        </div>  
 
         <input type="submit" value="Edit">
 
@@ -15,4 +61,44 @@
         <p><a href="{% url 'exercise_detail' pk=exercise.pk %}">Cancel</a></p>
 
     </form>
+{% endblock %}
+{% block custom_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.0.3/showdown.min.js"
+integrity="sha512-vx8rJNrYIZPDr290AV2tL04x0CKjLHSnTXrHMeb1kqbhfGwBnclPDOWIWxRiVS6Oe1oGzk5MzNz/eLzVku30kg=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type='text/javascript'>
+
+    document.getElementById('id_number_of_player').value = 0
+
+    function change(value) {
+        document.getElementById('id_number_of_player').value = value
+    }
+
+    function add_number() {
+       document.getElementById('id_number_of_player').value ++
+    }
+
+    function remove_number() {
+        document.getElementById('id_number_of_player').value --
+    }
+
+    function md_to_html() {
+        var description_md = document.getElementById('id_description')
+        var button = document.getElementById('test-button')
+
+        var converter = new showdown.Converter()
+        var htm = converter.makeHtml(description_md.value)
+        var markdown_container = document.getElementById('markdown-preview')
+        markdown_container.innerHTML = htm
+        markdown_container.classList.add('preview-md')
+        // button.value = 'Test'
+
+    }
+
+
+
+</script>
+
+
 {% endblock %}

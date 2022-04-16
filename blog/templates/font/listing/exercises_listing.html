@@ -33,7 +33,7 @@
                 <span> {{ field }}</span>
             </div> 
             {% elif field.name == 'like' %}
-            <div class='like'>
+            <div class='like2'>
                 {{ field }}
             </div>
             {% endif %}
@@ -75,12 +75,16 @@
                 {% if request.user.is_authenticated %}
                     {% if exercise.user_like %}
                         <td>
-                        <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')">Unlike</span>
+                        <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')" class='fav2'><span class="material-icons">
+                            thumb_up
+                            </span></span>
                         <span id='like_number_{{exercise.pk}}'>{{ exercise.like_number }}</span>
                         </td>
                     {% else %}
                     <td>
-                        <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')">Like</span>
+                        <span id='like_{{exercise.pk}}' onclick="like('{{ exercise.pk }}')" class='fav'><span class="material-icons">
+                            thumb_up
+                            </span></span>
                         <span id='like_number_{{exercise.pk}}'>{{ exercise.like_number }}</span>
                     </td>
                     {% endif %}
@@ -123,13 +127,11 @@
             let element = document.getElementById('like_' + pk)
             let like_number = document.getElementById('like_number_' + pk)
             if(like_action == 'liked') {
-            element.innerHTML = 'Unlike'
             like_number.innerHTML = parseInt(like_number.innerHTML) + 1
-            }
+            element.classList.add('fav2')}
             else {
-            element.innerHTML = 'Like'
-            like_number.innerHTML = parseInt(like_number.innerHTML) - 1}
-            // element.innerHTML = like_action == 'liked' ? 'Unlike' : 'Like
+            like_number.innerHTML = parseInt(like_number.innerHTML) - 1
+            element.setAttribute('class', 'fav')}
         })
         .catch(error => {})
     }
