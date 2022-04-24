@@ -1,14 +1,14 @@
 {% extends 'admin/back_base.html' %}
 {% load static %}
+{% block additonal_header %}
+   <link rel="stylesheet" href="{% static 'external/exercise-builder/style.min.css' %}">
+{% endblock %}
 
 {% block title %} <title>Exercise Builder</title> {% endblock %}
-    
+
 {%block content %}
-<exercise-builder></exercise-builder>
+<div id="app"></div>
 {% endblock %}
 {% block custom_js %}
-<script type="module" src="{% static 'external/exercise-builder/exercise-builder.js' %}"></script>
-<script>
-   var base_asset_url = "{% static 'external/exercise-builder/assets/' %}"
-</script>
+<script src="{% static 'external/exercise-builder/main.min.js' %}"></script>
 {% endblock %}
