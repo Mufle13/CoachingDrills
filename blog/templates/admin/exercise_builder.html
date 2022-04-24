@@ -2,35 +2,13 @@
 {% load static %}
 
 {% block title %} <title>Exercise Builder</title> {% endblock %}
-{% block additonal_header %}
-<link rel="stylesheet" href="{% static 'external/ExerciceBuilder/css/style.css' %}">
-{% endblock %}
     
 {%block content %}
-<div id="eb__exercice-builder">
-    <div>
-        <canvas width="880" height="500"></canvas>
-        <div id="eb__items-container">
-            <h3>Items</h3>
-            <div id="eb__canvas-items">
-            </div>
-        </div>
-    </div>
-    <div id="eb__actions">
-        <button onclick="addItemToField('ball')">Add ball</button>
-        <button onclick="addItemToField('plot')">Add plot</button>
-        <button onclick="addItemToField('player')">Add player</button>
-    </div>
-    <div>
-        <button onclick="download()">Download</button>
-    </div>
-</div>
+<exercise-builder></exercise-builder>
 {% endblock %}
 {% block custom_js %}
-<script src="{% static 'external/ExerciceBuilder/js/field.js' %}"></script>
-<script src="{% static 'external/ExerciceBuilder/js/item.js' %}"></script>
-<script src="{% static 'external/ExerciceBuilder/js/app.js' %}"></script>
+<script type="module" src="{% static 'external/exercise-builder/exercise-builder.js' %}"></script>
 <script>
-   var base_asset_url = "{% static 'external/ExerciceBuilder/assets/' %}"
+   var base_asset_url = "{% static 'external/exercise-builder/assets/' %}"
 </script>
 {% endblock %}

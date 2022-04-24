@@ -32,6 +32,7 @@ a:visited {
 
 .filters {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 
 }
@@ -45,7 +46,7 @@ a:visited {
 
 .filter-tags {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: flex-start;
     font-size: 12px;
 }
@@ -67,8 +68,8 @@ a:visited {
 
 .filter-button {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
 }
 
 .filter-button input {
@@ -114,13 +115,13 @@ a:visited {
 
 .like2 [type=checkbox] {
     display: flex;
-    align-self: center;
+    align-self: start;
 }
 
 .like2 {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     padding: 5px;
     margin: 5px;
 }

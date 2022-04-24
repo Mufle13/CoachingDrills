@@ -1,11 +1,25 @@
+import { Item, Arrow } from './item.js'
+
 class Field {
-    constructor(div_id) {
-        this.canvas = document.querySelector(div_id)
+    constructor(div_id, shadow) {
+        this.shadow = shadow
+        this.canvas = div_id
         this.ctx = this.canvas.getContext('2d')
         this.width = this.canvas.width
         this.height = this.canvas.height
         this.items = []
         this.selected = null
+        this.pending_arrow = null
+
+        this.canvas.addEventListener('mousedown', (e) => {
+            this.mouseDown(e.offsetX, e.offsetY)
+        })
+        this.canvas.addEventListener('mousemove', (e) => {
+            this.mouseMove(e.offsetX, e.offsetY)
+        })
+        this.canvas.addEventListener('mouseup', (e) => {
+            this.mouseUp()
+        })
     }
 
     drawCorners(){
@@ -78,12 +92,6 @@ class Field {
     render(){
         this.ctx.fillStyle = 'green'
         this.ctx.fillRect(0, 0, this.width, this.height)
-
-        this.ctx.strokeStyle = '#FFFFFF'
-        this.ctx.lineWidth = 2
-        // draw the field delimitation
-        this.ctx.rect(40, 15, this.width - 40*2, this.height -30)
-        this.ctx.stroke()
     
         this.drawCorners()
         this.drawGoalzone()
@@ -97,6 +105,12 @@ class Field {
         // draw center circle
         this.ctx.beginPath()
         this.ctx.arc((this.width / 2), (this.height / 2), 75, 0, 2 * Math.PI)
+        this.ctx.stroke()
+
+        // draw the field delimitation
+        this.ctx.rect(40, 15, this.width - 40*2, this.height -30)
+        this.ctx.strokeStyle = '#FFFFFF'
+        this.ctx.lineWidth = 2
         this.ctx.stroke()
     }
 
@@ -113,7 +127,7 @@ class Field {
             item.coordinates.y = 0
         } else {
             for (var i = 0; i < this.width - 32; i+= 32){
-                var has_item = this.items.find( it => it.coordinates.x >= i && it.coordinates.x <= i + 32)
+                var has_item = this.items.find( it => it instanceof Item && it.coordinates.x >= i && it.coordinates.x <= i + 32)
                 if (has_item == undefined){
                     item.coordinates.x = i
                     item.coordinates.y = 0
@@ -126,39 +140,84 @@ class Field {
         this.writeItemList()
     }
 
+    addArrow(arrow) {
+        arrow.start_coordinates = null
+        arrow.end_coordinates = null
+        this.pending_arrow = arrow
+    }
+
+    drawArrow(arrow){
+        if (arrow.start_coordinates && arrow.end_coordinates){
+            arrow.draw(this.ctx)
+            this.items.push(arrow)
+            this.pending_arrow = null
+        }
+    }
+
     removeItem(item_id){
         let item_by_id = this.items.find(it => it.id === item_id)
         this.items.splice(this.items.indexOf(item_by_id), 1)
         this.render()
-            for (var i=0 ; i < this.items.length; i++){
-                this.items[i].draw(this.ctx)
-            }
+        for (var i=0 ; i < this.items.length; i++){
+            this.items[i].draw(this.ctx)
+        }
         this.writeItemList()
     }
     
     writeItemList(){
-        let div = document.querySelector('#eb__canvas-items')
+        let div = this.shadow.querySelector('#eb__canvas-items')
         div.innerHTML = ''
         for (let i = 0; i < this.items.length; i++) {
             let item_div = document.createElement('div')
             item_div.classList.add('item')
             if (this.selected != null
+                && this.items[i] instanceof Item
                 && this.selected.coordinates.x == this.items[i].coordinates.x
                 && this.selected.coordinates.y == this.items[i].coordinates.y){
                     item_div.classList.add('selected')
             }
             item_div.innerHTML = this.items[i].asHtml()
+            item_div.addEventListener('click', (e) => {
+                this.removeItem(this.items[i].id)
+            })
             div.appendChild(item_div)
         }
     }
     mouseDown(mouseX, mouseY){
+        console.log(mouseX, mouseY)
+
         let item_clicked = this.items.find(item => {
-            return mouseX >= item.coordinates.x && mouseX <= item.coordinates.x + item.image.width
-                && mouseY >= item.coordinates.y && mouseY <= item.coordinates.y + item.image.height
+            return item instanceof Item
+                && mouseX >= item.coordinates.x
+                && mouseX <= item.coordinates.x + item.image.width
+                && mouseY >= item.coordinates.y
+                && mouseY <= item.coordinates.y + item.image.height
         })
-        this.selected = item_clicked ? item_clicked : null
+        let arrow_clicked = this.items.find(item => {
+            return item instanceof Arrow && item.isInside(mouseX, mouseY)
+        })
+        console.log(arrow_clicked)
+        if (item_clicked || arrow_clicked){
+            this.selected = item_clicked || arrow_clicked
+        } else {
+            this.selected = null
+        }
+        // this.selected = item_clicked ? item_clicked : null
         if (this.selected != null){
             this.selected.draggable = true
+        } else if (this.pending_arrow != null){
+            if(this.pending_arrow.start_coordinates == null){
+                this.pending_arrow.start_coordinates = {
+                    x: mouseX,
+                    y: mouseY
+                }
+            } else {
+                this.pending_arrow.end_coordinates = {
+                    x: mouseX,
+                    y: mouseY
+                }
+                this.drawArrow(this.pending_arrow)
+            }
         }
         this.writeItemList()
     }
@@ -166,11 +225,17 @@ class Field {
         if (this.selected != null){
             if (this.selected.draggable == true){
                 this.render()
-                for (var i=0 ; i < this.items.length; i++){
-                    this.items[i].draw(this.ctx)
-                }
                 this.selected.move(mouseX, mouseY)
                 this.selected.draw(this.ctx)
+                for (var i=0 ; i < this.items.length; i++){
+                    this.items[i].draw(this.ctx)
+                    // if (this.items[i] instanceof Arrow) {
+                    //     this.items[i].draw(this.ctx)
+                    // }
+                    // else if (this.items[i] instanceof Item) {
+                    //     this.items[i].draw(this.ctx)
+                    // }
+                }
             }
         }
     }
@@ -181,3 +246,5 @@ class Field {
         this.writeItemList()
     }
 }
+
+export { Field }
