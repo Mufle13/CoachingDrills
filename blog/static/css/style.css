@@ -1,0 +1,388 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+
+header {
+    border-bottom: 1px solid #f8f8f8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 100px;
+
+}
+
+.title {
+    width: 23%;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+
+.choices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 15%;
+    font-size: 15px;
+}
+
+#looking {
+    color: #7092e6;
+}
+
+.location {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+#location-logo {
+    font-size: 15px !important;
+}
+
+.city {
+    font-size: 15px;
+    text-decoration: underline;
+    padding-left: 5px;
+
+}
+
+.login {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 40%;
+}
+
+#login-logo {
+    display: flex;
+    align-items: center;
+    font-size: 30px !important;
+    padding-right: 10px;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.looking {
+    font-size: 12px;
+    color: lightslategrey;
+}
+
+.job-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f8f8f8;
+    flex-direction: row;
+    padding: 15px 0 15px 100px;
+    box-shadow: 0px 10px 30px -20px grey;
+
+}
+
+.job-requirements {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+}
+
+.job-requirements label {
+    color: #a2a2a2;
+}
+
+.job-requirements :not(.material-symbols-outlined) {
+    border-right: 1px solid #f8f8f8;
+    padding: 10px 10px;
+    padding-left: 30px;
+}
+
+.location2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #a2a2a2;
+    width: 20%;
+    
+}
+
+#arrow {
+    color: #a2a2a2;
+    padding-left: 70px;
+    
+}
+
+.research {
+    width: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.research .material-symbols-outlined {
+    padding-right: 10px;
+    color: #a2a2a2;
+}
+
+#research-text {
+    font-weight: bold;
+}
+
+#experience {
+    color: #a2a2a2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;
+}
+
+#salary {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main {
+    display: flex;
+}
+
+nav {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 100px;
+}
+
+nav span {
+    padding: 40px 0;
+    border-bottom: 1px solid #f8f8f8;
+    font-weight: bold;
+}
+
+.filters {
+    padding: 20px 0;
+}
+
+.filters:not(:last-child) {
+    border-bottom: 1px solid #f8f8f8;
+}
+
+.filter-name {
+    padding: 15px 0;
+    color: #b8b8b8;
+}
+
+.checkbox:not(:first-child){
+    padding: 5px 0;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+[type=checkbox] {
+    margin: 0;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    position: absolute;
+    height: 1rem;
+    width: 1rem;  
+
+}
+
+svg {
+    height: 1rem;
+    width: 1rem; 
+    color: white;
+}
+
+.checkbox-container {
+    position: relative;
+    height: 1rem;
+    width: 1rem;
+    margin-right: 15px;
+}
+
+.fake-checkbox {
+    display: flex;
+    border: 1px solid #b2b2b2;
+    border-radius: 5px;
+}
+
+[type=checkbox]:checked ~ .fake-checkbox
+ {
+    background-color: #3f6cdf;
+    border: 1px solid #3f6cdf;
+}
+
+.content {
+    width: 100%;
+}
+
+.content-header {
+padding: 40px 0;
+width: 100%;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 325px;
+    margin: 10px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+}
+
+.card-header {
+    position: relative;
+}
+
+.card-header-category {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.75);
+    color: black;
+    padding: 5px 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+
+}
+
+.card svg {
+    height: 1.25em;
+    width: 1.25em;
+    color: #3f6cdf;
+    margin-left: 5px;
+}
+
+.card-body {
+    padding: 25px;
+    
+}
+
+.card img {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    object-fit: cover;
+}
+
+.card-footer {
+    display: flex;
+    justify-self: flex-end;
+    padding: 25px;
+    /* justify-content: start; */
+    align-items: center;
+
+}
+.line-logo, .line-title,  .line-location, .line-description, .line-tags{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+}
+
+ .line-logo span {
+     color: #d8d8db;
+ }
+
+ .line-title span:first-child {
+     font-size: 1.2em;
+     font-weight: bold;
+ }
+
+ .line-title span:last-child {
+    color: #4671df;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+ }
+
+.line-location {
+    font-weight: 700;
+}
+
+.line-description {
+    color: #868585;
+}
+
+.last-line {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+}
+
+.line-tags span {
+    margin-right: 5px;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+.line-tags {
+    display: flex;
+    justify-content: start;
+}
+
+.tag-blue {
+    color: #60b1ec;
+    background-color: #dbecfc;
+}
+
+.tag-purple {
+    color: #a261e5;
+    background-color: #e9dafd;
+}
+
+.tag-green {
+    color: #40b07a;
+    background-color: #d7f3e8;
+}
+
+.card-footer .button-primary {
+    padding: 8px 32px;
+    border-radius: 0.75em;
+    font-size: .875em;
+    cursor: pointer;
+    background-color: #3f6cdf;
+    color: white;
+    border: 1px solid #3f6cdf;
+    text-decoration: none;
+}   
+
+.button-secondary {
+    background-color: transparent;
+    color: #4b5563;
+    border: 1px solid #4b5563;
+}
+

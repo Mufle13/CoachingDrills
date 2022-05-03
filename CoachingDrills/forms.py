@@ -77,11 +77,13 @@ class TagAddForm(forms.ModelForm):
         fields = '__all__'
 
 
-class FilterCategTag(forms.Form):
+class ExerciseFilterForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Categories', widget=forms.CheckboxSelectMultiple, required=False)
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
     research = forms.CharField(max_length=100, required=False)
-    like = forms.BooleanField(required=False)
+    difficulty = forms.ChoiceField(choices=Exercise.difficulty.field.choices, label='Difficulty', required=False)
+    number_of_player = forms.IntegerField(label='Number of players', required=False)
+    
 
 class FavouriteForm(forms.Form):
     class Meta:
