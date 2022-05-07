@@ -4,7 +4,16 @@ from multiprocessing import context
 from pyexpat import model
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from CoachingDrills.forms import CustiomSignupForm, SignUpForm, ExerciseAddForm, TagAddForm, CategoryAddForm, ExerciseFilterForm, FavouriteForm
+from CoachingDrills.forms import (
+    CustiomSignupForm, 
+    SignUpForm, 
+    ExerciseAddForm, 
+    TagAddForm, 
+    CategoryAddForm, 
+    ExerciseFilterForm, 
+    AdminExerciseFilterForm,
+    FavouriteForm,)
+    
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -19,7 +28,7 @@ import markdown as md
 
 
 
-# Cutom admin page
+# Custom admin page
 @staff_member_required(login_url='login')
 def admin_index(request):
     user = request.user
@@ -64,7 +73,7 @@ def logout_view(request):
 @login_required
 def exercices_listing(request):
     if request.method == 'GET':
-        form = ExerciseFilterForm(request.GET)
+        form = AdminExerciseFilterForm(request.GET)
         if form.is_valid():
             data = form.cleaned_data
             categories = data['categories']
@@ -295,39 +304,41 @@ class About(TemplateView):
 class ExerciseListing(ListView):
     model = Exercise
     template_name = 'font/listing/new_exercises_listing.html'
-    paginate_by = 3
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         exercises_count = self.object_list.count()
-        form = ExerciseFilterForm()
+        form = ExerciseFilterForm(self.request.GET)
         context['form'] = form
         context['count'] = exercises_count
-        print(context)
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by("name")
         queryset = queryset.annotate(like_number=Count('likes'))
         # queryset = queryset.annotate(user_like=Count('likes', filter=Q(likes__user=self.request.user)))
         if self.request.method == 'GET':
             form = ExerciseFilterForm(self.request.GET)
             if form.is_valid():
                 data = form.cleaned_data
-                categories = data['categories']
+                category = data['category']
                 tags = data['tags'] 
                 query= data['research']
+                number_of_player = data["number_of_player"]
+                sort_by = data['sort_by']
                 # like = data['like']
                 # if like is True:
                 #     queryset = queryset.filter(user_like=1)
-                if categories:
-                    queryset = queryset.filter(category__in=categories)
+                if category:
+                    queryset = queryset.filter(category=category)
                 if tags:
                     queryset = queryset.filter(tag__in=tags)
                 if query:
                     queryset = queryset.filter(Q(name__icontains=query)|Q(category__name__icontains=query)|Q(tag__name__icontains=query))
-            # else:
-            #     form = ExerciseFilterForm()
+                if number_of_player != 0:
+                    queryset = queryset.filter(number_of_player=number_of_player)
+                queryset = queryset.order_by(sort_by)
 
         return queryset
 

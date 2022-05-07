@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tag  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,35 +9,43 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <span class="title">CoachingDrill</span>
-        <div class="login">
-            <span id="login-logo" class="material-symbols-outlined">face</span>
-            <div class="information">
-                <span class="name">Michel Irving</span>
+    <form id="formid" method=>
+        <header>
+            <span class="title">CoachingDrill</span>
+        </header>
+        <div class="job-info">
+            <div class="research">
+                <span class="material-symbols-outlined">search</span>
+                <span id="research-text">{{form.research}}</span>
+            </div> 
+
+            <div class="job-requirements">
+                <span class="select-filter">
+                    <label>{{form.category.label}}</label>
+                    <span>{{form.category}}</span> 
+                </span>
+                <!-- <span class="select-filter">
+                    <label>{{form.difficulty.label}}</label>
+                    <span>{{form.difficulty}}</span> 
+                </span> -->
+                {% if form.number_of_player.value == None %}
+                <span id="salary"><label>{{ form.number_of_player.label}}</label><input name="number_of_player" id="id_number_of_player" oninput="displayRangeValue()" type="range" min="0" max="22" value="0"/></span>
+                {% else %}
+                <span id="salary"><label>{{ form.number_of_player.label}}</label><input name="number_of_player" id="id_number_of_player" oninput="displayRangeValue()" type="range" min="0" max="22" value="{{form.number_of_player.value}}"/></span>
+                {% endif %}    
+                {% if form.number_of_player.value == None or form.number_of_player.value == "0" %} 
+                <span id="range-value">All</span>
+                {% else %}
+                <span id="range-value">{{form.number_of_player.value}}</span>
+                {% endif %}     
             </div>
         </div>
-    </header>
-    <div class="job-info">
-        <div class="research">
-            <span class="material-symbols-outlined">search</span>
-            <span id="research-text">On verra</span>
-        </div> 
-        <div class="job-requirements">
-            <span class="difficulty-filter">
-                <label>{{form.difficulty.label}}</label>
-                <span>{{form.difficulty}}</span> 
-            </span>
-            <span id="salary"><label>{{ form.number_of_player.label}}</label><input type="range" max="22" min="1"/></span>
-        </div>
-    </div>
-<div class="main">
-        <nav class="sidebar">
-            <span>Filters</span>
-            <form id="formid" method="GET">
-                <div class="filters">
-                    <div class="filter-name">Categories</div>
-                    {% for choice in form.categories %}
+    <div class="main">
+            <nav class="sidebar">
+                <span>Filters</span>
+                    <div class="filters">
+                        <div class="filter-name">Tags</div>
+                        {% for choice in form.tags %}
                         <div class="checkbox">
                             <div class="checkbox-container">
                                 {{ choice.tag }}
@@ -44,79 +53,90 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                     </svg>
-                                </div>  
-                            </div> 
-                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>                 
+                                </div>
+                            </div>    
+                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
                         </div>
-                        {% endfor %}
-                </div>
-                <div class="filters">
-                    <div class="filter-name">Tags</div>
-                    {% for choice in form.tags %}
-                    <div class="checkbox">
-                        <div class="checkbox-container">
-                            {{ choice.tag }}
-                            <div class="fake-checkbox">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </div>    
-                        <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
-                    </div>
-                        {% endfor %}
-                </div>
-                <input type="submit" name="Filter">
-            </form>
-        </nav>
-        <div class="content">
-            <div class="content-header">
-                <div>    
-                    <span>Recommended jobs<span>640</span></span>
-                </div>
-                <div>
-                    <span>Sort by</span>
-                    <span>Last posted</span>
-                    <span id="arrow" class="material-symbols-outlined">arrow_drop_down</span> 
-                </div>
-            </div>
-            <div class="card-container">
-                {% for exercise in object_list %}
-                <div class="card">
-                    <div class="card-header">
-                        <div class="exercise-picture">
-                            {% if exercise.picture %}
-                            <img src="{{exercise.picture.url}}" alt="exercise picture">
-                            {% endif %}
-                        </div>
-                        <div class="card-header-category">
-                            <span>{{exercise.category}}</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="line-title">
-                            <span>{{ exercise.name }}</span>
-                            <span>{{ exercise.like_number }}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="line-tags">
-                            {% for tag in exercise.tag.all %}
-                            <span class="tag-purple">{{tag.name}}</span>
                             {% endfor %}
-                        </div>
-                        <div class="line-location">
-                            <span>Duration: {{ exercise.duration }} min.</span>
-                        </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="{% url 'exercise_details_font' pk=exercise.pk %}" class="button-primary">See more</a>     
+                    <button type="submit">Filter</button>
+            </nav>
+            <div class="content">
+                <div class="content-header">
+                    <div>    
+                        <span>Exercises<span>{{ count }}</span></span>
+                    </div>
+                    <div>
+                        <span>Sort by</span>
+                        <span>{{ form.sort_by}}</span>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="card-container">
+                    {% for exercise in object_list %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="exercise-picture">
+                                {% if exercise.picture %}
+                                <img src="{{exercise.picture.url}}" alt="exercise picture">
+                                {% endif %}
+                            </div>
+                            <div class="card-header-category">
+                                <span>{{exercise.category}}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="line-title">
+                                <span>{{ exercise.name }}</span>
+                                <span>{{ exercise.like_number }}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="line-tags">
+                                {% for tag in exercise.tag.all %}
+                                <span class="tag-purple">{{tag.name}}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="line-location">
+                                <span>Duration: {{ exercise.duration }} min.</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{% url 'exercise_details_font' pk=exercise.pk %}" class="button-primary">See more</a>     
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="pagination">
+                        <span class="pages">
+                            {% if page_obj.has_previous %}
+                                <a href="?{% replace_page 1 %}">&#171</a>
+                                <a href="?{% replace_page page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+                            {% endif %}
+                    
+                            
+                        <span class="current">{{ page_obj.number }}</span>
+                            
+                    
+                            {% if page_obj.has_next %}
+                                <a href="?{% replace_page page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+                                <a href="?{% replace_page page_obj.paginator.num_pages %}">&#187</a>
+                            {% endif %}
+                        </span>
+                    </div>  
+                </div>
             </div>
         </div>
-    </div>
+    </form> 
+    <script>
+        function displayRangeValue() {
+            let range_value = document.getElementById("id_number_of_player").value
+            if (range_value == "0") {
+                document.getElementById("range-value").innerHTML = "All"
+            } else {
+                document.getElementById("range-value").innerHTML = range_value
+            }
+        }
+
+    </script>   
 </body>
 </html>

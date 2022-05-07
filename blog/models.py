@@ -52,6 +52,7 @@ class Exercise(models.Model):
     picture = models.ImageField(upload_to='exercises_pic', blank=True, null=True)
     description = models.TextField(blank=True)
     difficulty = models.CharField(max_length=2, choices=DIFFICULTY, default=FACILE)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 
 

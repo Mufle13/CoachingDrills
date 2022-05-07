@@ -1,3 +1,4 @@
+from email.policy import default
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from blog.models import Category, Favourite, Tag, User, Exercise
@@ -78,6 +79,23 @@ class TagAddForm(forms.ModelForm):
 
 
 class ExerciseFilterForm(forms.Form):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Categories', required=False)
+    tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
+    research = forms.CharField(max_length=100, required=False)
+    difficulty = forms.ChoiceField(choices=Exercise.difficulty.field.choices, label='Difficulty', required=False)
+    number_of_player = forms.IntegerField(label='Number of players', initial=None, required=False)
+
+    choices = [
+        ("created", "Publication date"),
+        ("name", "Name"),
+        ("category", "Category"),
+        ("number_of_player", "Number of player")
+        
+    ]
+
+    sort_by = forms.ChoiceField(choices=choices)
+
+class AdminExerciseFilterForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Categories', widget=forms.CheckboxSelectMultiple, required=False)
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), label='Tags', widget=forms.CheckboxSelectMultiple, required=False)
     research = forms.CharField(max_length=100, required=False)
