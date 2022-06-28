@@ -361,7 +361,7 @@ def favourite(request, pk):
 
 class ExerciseDetails(DetailView):
     model = Exercise
-    template_name = 'font/detail/exercises_detail.html'
+    template_name = 'font/detail/exercises_detail_new.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
