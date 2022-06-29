@@ -1,0 +1,346 @@
+.top-bar {
+    background-color: lightgray;
+    display: flex;
+    border: 2px black;
+    width: 100%;
+    justify-content: center;
+}
+
+.menu {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35%;
+    padding: 10px;
+}
+
+.menu a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+#main_title {
+    font-size: 40px;
+}
+
+a:visited {
+    color: black;
+}
+
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.filter-categories {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    font-size: 12px;
+}
+
+.filter-tags {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    font-size: 12px;
+}
+
+.filters [type='checkbox']:checked + label::after {
+    content: none;
+}
+
+.filter-research {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.filter-research span {
+    padding-right: 20px;
+}
+
+.filter-button {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.filter-button input {
+    padding: 5px 20px;
+    margin-right: 10px;
+    border: 1px solid lightgray;
+    background-color: lightskyblue;
+    border-radius: 10px;
+}
+
+.filter-button input:hover {
+    border: 1px solid lightskyblue;
+    color: blue;
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-style: italic;
+}
+
+
+
+.count {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.pages a {
+    border: 1px solid lightgray;
+    padding: 2px;
+}
+
+.current {
+    border: 1px solid lightgray;
+    padding: 2px;
+    background-color: lightskyblue;
+}
+
+.like2 [type=checkbox] {
+    display: flex;
+    align-self: start;
+}
+
+.like2 {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    padding: 5px;
+    margin: 5px;
+}
+
+.fav {
+    color: lightgrey;
+    cursor: pointer;
+}
+
+.fav2 {
+    display: flex;
+    color: lightskyblue;
+    cursor: pointer;
+}
+  
+.fav2 .material-icons {
+    cursor: pointer;
+    animation: bump 0.5s;
+    transform: scale(1);
+  }
+
+@keyframes bump {
+50% {transform: scale(1.5);}}
+  
+.fields {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 10px;
+        width: 100%;
+}
+
+label {
+    color: black;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+
+[type='radio']:not(checked),
+[type='radio']:checked {
+    display: none;
+}
+
+[type='radio']:not(checked) + label,
+[type='radio']:checked + label {
+    padding: 5px 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 3px;
+
+}
+
+[type='radio']:checked + label {
+    background-color: lightskyblue;
+    color: blue;
+}
+
+.picture {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tag {
+    display: flex;
+    flex-flow: row wrap;
+    width: 30%;
+    justify-content: flex-start;
+    font-size: 12px;
+}
+
+.category {
+    font-size: 12px;
+}
+
+[type='checkbox']:not(checked),
+[type='checkbox']:checked {
+    display: none;
+    margin-top: 10px;
+}
+
+[type='checkbox']:not(checked) + label,
+[type='checkbox']:checked + label {
+    display: block;
+    margin: 3px;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+}
+
+[type='checkbox']:checked + label::after {
+    content: ' ✅';
+}
+
+[type='checkbox']:checked + label {
+    background-color: lightskyblue;
+    color: blue;
+}
+
+.field-label {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 0;
+}
+
+.categories {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.save-button {
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    color: blue;
+    background-color: lightskyblue;
+    border: 1px solid grey;
+}
+
+[type='text'] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 250px;
+}
+
+[type='number'] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    width: 40px;
+}
+
+[type='file'] {
+    border: 3px transparent;
+    padding: 0;
+}
+
+input:not([type='file']):hover, .search-bar form:hover, textarea:hover, [type='checkbox']:not(checked) + label:hover, [type='radio']:not(checked) + label:hover {
+    border: 1px solid lightskyblue;
+    transition-property: border;
+    transition-delay: 0.2s;
+    transition-duration: 0.5s;
+}
+
+input:focus, .search-bar form:focus, textarea:focus {
+    outline: none;; 
+    box-shadow: 0 0 10px 2px lightskyblue;
+}
+
+select {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+[type='button'] {
+    border: 1px solid lightgray;
+    background-color: lightskyblue;
+    color: blue;
+}
+
+[type='button']:focus {
+    border: 1px solid blue;
+}
+
+
+[type='button']:hover {
+    border: 1px solid lightskyblue;
+}
+
+.exercise-content {
+    display: flex;
+    flex-flow: row;
+}
+
+.exercise-content p {
+    padding: 5px;
+    margin: 10px 5px;
+    font-size: 20px;
+    line-height: 1.5;
+    border: 1px solid black;
+}
+
+.exercise-content img {
+    margin: 10px 0px;
+
+}
+
+.exercise-info {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.exercise-info span {
+    padding-right: 50px;
+    margin: 10px 0;
+}
+
+.exercise-top-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.exercise_like {
+    padding: 0 20px;
+}
+
+.description {
+    color: blue;
+}
