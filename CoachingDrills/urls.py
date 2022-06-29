@@ -63,9 +63,9 @@ urlpatterns = [
    path('admin/exercise-builder', exercise_builder, name="exercise_builder"),
 
      # font 
-   path('', index, name='index_front'),
+   path('', ExerciseListing.as_view(), name='exercises_list_font'),
    path('about', About.as_view(), name='about'),
-   path('exercises', ExerciseListing.as_view(),name= 'exercises_list_font'),
+#    path('exercises', ExerciseListing.as_view(),name= 'exercises_list_font'),
    path('fav/<int:pk>', favourite, name='favourite'),
    path('exercise/<int:pk>', ExerciseDetails.as_view(), name='exercise_details_font')
 
