@@ -82,14 +82,14 @@ WSGI_APPLICATION = 'CoachingDrills.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': os.environ["BDD_NAME"],
-        # 'USER': os.environ["BDD_USER"],
-        # 'PASSWORD': os.environ["BDD_PWD"],
-        # 'HOST': os.environ["BDD_HOST"],
-        # 'PORT': 5432,
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ["BDD_NAME"],
+        'USER': os.environ["BDD_USER"],
+        'PASSWORD': os.environ["BDD_PWD"],
+        'HOST': os.environ["BDD_HOST"],
+        'PORT': 5432,
     }
 }
 
